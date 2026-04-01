@@ -1,18 +1,10 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
-  display: "swap",
-});
+import "./fonts.css";
 
 export const metadata: Metadata = {
-  title: "Portal de Turismo | Jaboatão dos Guararapes",
-  description:
-    "Descubra praias, roteiros e cultura no portal turístico de Jaboatão dos Guararapes.",
+  title: "Turismo",
+  description: "Turismo",
 };
 
 export default function RootLayout({
@@ -21,8 +13,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={`${inter.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col text-slate-900">{children}</body>
+    <html lang="pt-BR" suppressHydrationWarning>
+      <body suppressHydrationWarning>{children}</body>
     </html>
   );
 }

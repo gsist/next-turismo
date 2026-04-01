@@ -1,9 +1,3 @@
-import { SiteLayout } from "@/layouts/SiteLayout";
+import SiteLayout from "@/app/layouts/SiteLayout";
 
-export default function SiteRouteLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return <SiteLayout>{children}</SiteLayout>;
-}
+export default SiteLayout;

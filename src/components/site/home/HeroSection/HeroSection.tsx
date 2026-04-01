@@ -8,85 +8,85 @@ type HeroSectionProps = {
 };
 
 const heroActions = [
-  {
-    href: "/o-que-conhecer",
-    label: "O que conhecer",
-    className:
-      "bg-imune-green text-white shadow-imune-green/30 hover:bg-imune-green-light",
-  },
-  {
-    href: "/historia",
-    label: "História",
-    className:
-      "bg-imune-blue text-white shadow-imune-blue/30 hover:bg-imune-blue-light",
-  },
-  {
-    href: "/destaques",
-    label: "Destaques",
-    className:
-      "bg-imune-yellow text-imune-navy shadow-imune-yellow/40 hover:bg-imune-yellow-dark hover:text-white",
-  },
-  {
-    href: "/#roteiros",
-    label: "Roteiros",
-    className:
-      "bg-imune-green text-white shadow-imune-green/30 hover:bg-imune-green-light",
-  },
-] as const;
+  { href: "/o-que-conhecer", label: "O que conhecer", variant: "primary" as const },
+  { href: "/historia", label: "História", variant: "ghost" as const },
+  { href: "/destaques", label: "Destaques", variant: "ghost" as const },
+  { href: "/#roteiros", label: "Roteiros", variant: "accent" as const },
+];
 
 export function HeroSection({ title, subtitle, imageUrl }: HeroSectionProps) {
   return (
-    <section className="imune-hero-dots relative overflow-hidden">
-      <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-imune-green/10 blur-3xl" />
-      <div className="pointer-events-none absolute -left-16 bottom-0 h-56 w-56 rounded-full bg-imune-yellow/15 blur-3xl" />
+    <section className="relative isolate overflow-hidden rounded-3xl shadow-2xl ring-1 ring-black/5">
+      <div className="relative min-h-[min(78vh,720px)] w-full sm:min-h-[min(82vh,800px)]">
+        <Image
+          src={imageUrl}
+          alt=""
+          fill
+          priority
+          className="object-cover object-center"
+          sizes="100vw"
+        />
 
-      <div className="relative mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
-          <div className="flex justify-center lg:order-1 lg:justify-start">
-            <div className="relative h-64 w-64 shrink-0 sm:h-72 sm:w-72">
-              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-imune-green via-imune-blue to-imune-yellow opacity-25 blur-xl" />
-              <div className="relative h-full w-full overflow-hidden rounded-full border-[6px] border-white shadow-2xl shadow-imune-navy/15 ring-4 ring-imune-blue/20">
-                <Image
-                  src={imageUrl}
-                  alt=""
-                  fill
-                  className="object-cover"
-                  priority
-                  sizes="(max-width: 1024px) 288px, 320px"
-                />
-              </div>
+        <div
+          className="absolute inset-0 bg-gradient-to-br from-[#0037C1]/95 via-[#002D9E]/80 to-[#fdc300]/45"
+          aria-hidden
+        />
+        <div
+          className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.2),transparent_55%)]"
+          aria-hidden
+        />
+        <div
+          className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/35 to-transparent"
+          aria-hidden
+        />
+
+        <div className="relative z-10 flex min-h-[min(78vh,720px)] flex-col justify-end px-6 pb-12 pt-8 sm:min-h-[min(82vh,800px)] sm:px-10 sm:pb-10 lg:px-0 lg:pb-16">
+          <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
+            <div className="max-w-2xl">
+              <p className="mb-4 inline-flex items-center gap-2 rounded-full bg-[#fdc300] px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-[#0037C1] shadow-md shadow-black/10">
+                <span className="h-2 w-2 rounded-full bg-[#0037C1]" aria-hidden />
+                Jaboatão dos Guararapes · PE
+              </p>
+
+              <h1 className="text-balance text-3xl font-bold leading-[1.1] tracking-tight text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.35)] sm:text-4xl md:text-5xl lg:text-6xl">
+                {title}
+              </h1>
+
+              <p className="mt-5 max-w-xl text-pretty text-base leading-relaxed text-white/95 sm:text-lg">
+                {subtitle}
+              </p>
             </div>
-          </div>
 
-          <div className="text-center lg:order-2 lg:text-left">
-            <p className="mb-3 inline-flex rounded-full bg-white/90 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-imune-blue shadow-sm ring-1 ring-imune-blue/15">
-              Jaboatão dos Guararapes · PE
-            </p>
-            <h1 className="text-balance text-3xl font-bold leading-tight text-imune-navy sm:text-4xl lg:text-5xl">
-              {title}
-            </h1>
-            <p className="mt-5 max-w-xl text-pretty text-base leading-relaxed text-slate-600 sm:text-lg lg:mx-0 lg:max-w-2xl">
-              {subtitle}
-            </p>
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap lg:flex-col lg:items-stretch xl:flex-row">
+              {heroActions.map((action) => {
+                const base =
+                  "inline-flex items-center justify-center rounded-full px-6 py-3.5 text-sm font-bold shadow-lg transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white";
+                const styles =
+                  action.variant === "primary"
+                    ? "bg-[#fdc300] text-[#0037C1] hover:bg-white hover:shadow-xl"
+                    : action.variant === "accent"
+                      ? "border-2 border-white/90 bg-white/10 text-white backdrop-blur-sm hover:bg-white hover:text-[#0037C1]"
+                      : "border border-white/40 bg-white/10 text-white backdrop-blur-sm hover:bg-white/20";
 
-            <div className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
-              {heroActions.map((action) => (
-                <Link
-                  key={action.href}
-                  href={action.href}
-                  className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-bold shadow-lg transition-all hover:shadow-xl ${action.className}`}
-                >
-                  <span
-                    className="inline-block h-2 w-2 shrink-0 rounded-full bg-white/90"
-                    aria-hidden
-                  />
-                  {action.label}
-                </Link>
-              ))}
+                return (
+                  <Link
+                    key={action.href}
+                    href={action.href}
+                    className={`${base} ${styles}`}
+                  >
+                    {action.label}
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </div>
       </div>
+
+      <div
+        className="pointer-events-none absolute -bottom-px left-0 right-0 h-6 bg-gradient-to-t from-[#f4f8fb] to-transparent"
+        aria-hidden
+      />
     </section>
   );
 }
