@@ -144,16 +144,6 @@ const DesktopMenu = () => {
   );
 };
 
-const Botaosiga = () => (
-  <div className="hidden xl:flex gap-3 text-white text-lg justify-center xl:justify-end">
-    <Link
-      href="/login-cidadao"
-      className="inline-block bg-[#0037C1] text-white font-semibold text-lg px-8 py-2 rounded-full border-2 border-white hover:bg-[#1300a8] hover:border-[#d1d5db] transition duration-300 ease-in-out shadow-md hover:shadow-lg transform hover:scale-105"
-    >
-      Minha Carteira
-    </Link>
-  </div>
-);
 
 const Logo = () => (
   <div className="shrink-0">
@@ -277,7 +267,6 @@ export default function HeaderMenu() {
 
             {/* Botões */}
             <div className="flex items-center gap-4">
-              <Botaosiga />
               
               {/* Botão mobile */}
               <button
