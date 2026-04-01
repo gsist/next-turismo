@@ -27,7 +27,7 @@ export default function Footer() {
     <div className="relative w-full">
       <div className="flex items-center justify-center">
         <Image
-          src="/images/Rodape/topo-rodape.svg"
+          src="/images/Rodape/topo-rodape.png"
           alt="Topo do rodapé"
           width={1500}
           height={50}
@@ -469,7 +469,7 @@ export default function Footer() {
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             <div className="flex items-center justify-center">
               <Image
-                src="/images/Logo/logotop.svg"
+                src="/images/Logo/logotop.png"
                 alt="Logotipo"
                 width={120}
                 height={100}

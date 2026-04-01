@@ -1,17 +1,13 @@
-import AccessibilityButton from "@/components/site/AccessibilityButton";
-import Footer from "@/components/site/Footer";
-import HeaderMenu from "@/components/site/HeaderMenu";
-import ScrollToTop from "@/components/site/ScrollToTop";
+import AccessibilityButton from "@/app/components/site/AccessibilityButton";
+import Footer from "@/app/components/site/Footer";
+import HeaderMenu from "@/app/components/site/HeaderMenu";
+import ScrollToTop from "@/app/components/site/ScrollToTop";
 
-export default function SiteLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <HeaderMenu />
-      <div className="min-h-screen pt-[104px]">{children}</div>
+      {children}
       <AccessibilityButton />
       <ScrollToTop />
       <Footer />

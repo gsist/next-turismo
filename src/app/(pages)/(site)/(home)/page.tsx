@@ -1,5 +1,12 @@
-import HomeContent from "@/components/site/home/HomeContent";
+import HeroSection from "@/app/components/site/home/HeroSection";
+import Roteiro from "@/app/components/site/home/Roteiro";
 
-export default function HomePage() {
-  return <HomeContent />;
+export default function PrecadastroPage() {
+  return (
+    <>
+    <HeroSection />
+    <Roteiro />
+    </>
+  );
 }
+
