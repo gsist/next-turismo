@@ -17,9 +17,17 @@ export default function HeroSection() {
       {/* ── DESIGN DE FUNDO ── */}
       <div className="absolute inset-0 z-0 pointer-events-none">
 
-        {/* Bloco Azul — desktop: diagonal direita; mobile: cobre topo inteiro */}
+        {/* Mobile: fundo azul completo */}
         <div
-          className="absolute top-0 right-0 w-full lg:w-[62%] h-[55%] sm:h-[50%] lg:h-full"
+          className="lg:hidden absolute inset-0"
+          style={{
+            background: 'linear-gradient(145deg, #0037C1 0%, #0044CA 40%, #00BDFF 100%)',
+          }}
+        />
+
+        {/* Desktop: Bloco Azul lateral */}
+        <div
+          className="hidden lg:block absolute top-0 right-0 w-[62%] h-full"
           style={{
             background: 'linear-gradient(145deg, #0037C1 0%, #0044CA 40%, #00BDFF 100%)',
             clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 15% 100%)',
@@ -28,7 +36,7 @@ export default function HeroSection() {
 
         {/* Bloco Verde */}
         <div
-          className="absolute bottom-0 right-0 w-full lg:w-[45%] h-[12%] sm:h-[10%] lg:h-[40%] opacity-90 z-10"
+          className="absolute bottom-0 right-0 w-full h-[12%] sm:h-[10%] lg:w-[45%] lg:h-[40%] opacity-90 z-10"
           style={{
             background: 'linear-gradient(to top right, #00751D 0%, #008C32 50%, #00DD4F 100%)',
             clipPath: 'polygon(100% 0, 5% 100%, 100% 100%)',
@@ -37,7 +45,7 @@ export default function HeroSection() {
 
         {/* Sol decorativo */}
         <div
-          className="absolute top-[-5%] right-[10%] w-48 h-48 sm:w-72 sm:h-72 lg:w-[500px] lg:h-[500px] rounded-full opacity-40"
+          className="absolute top-[-5%] right-[10%] w-48 h-48 sm:w-72 sm:h-72 lg:w-125 lg:h-125 rounded-full opacity-40"
           style={{
             background: 'radial-gradient(circle, #FDC300 0%, #F9BC00 50%, #FF8500 100%)',
             filter: 'blur(70px)',
@@ -47,10 +55,10 @@ export default function HeroSection() {
 
       {/* ── CONTEÚDO PRINCIPAL ── */}
       <div className="
-        relative z-20 flex-grow mx-auto max-w-7xl w-full
+        relative z-20 grow mx-auto max-w-7xl w-full
         px-5 sm:px-8 lg:px-6
-        pt-12 pb-28
-        sm:pt-16 sm:pb-28
+        pt-32 pb-28
+        sm:pt-36 sm:pb-28
         lg:pt-0 lg:pb-0 lg:flex lg:items-center
       ">
         <div className="grid lg:grid-cols-12 gap-10 sm:gap-14 lg:gap-24 items-center w-full">
@@ -58,7 +66,6 @@ export default function HeroSection() {
           {/* ── COLUNA ESQUERDA ── */}
           <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left">
 
-            {/* Título: branco no mobile/tablet (sobre fundo azul), azul no desktop */}
             <h1 className="
               font-black leading-[0.85] tracking-tighter uppercase italic drop-shadow-sm
               text-[clamp(3.5rem,13vw,8.5rem)]
@@ -70,7 +77,6 @@ export default function HeroSection() {
               </span>
             </h1>
 
-            {/* Subtítulo: branco no mobile, escuro no desktop */}
             <div className="mt-8 lg:mt-16 max-w-xl">
               <p className="text-base sm:text-xl lg:text-3xl font-bold leading-snug text-white lg:text-slate-800">
                 Onde o{' '}
@@ -94,7 +100,6 @@ export default function HeroSection() {
                 EXPLORAR AGORA
               </button>
 
-              {/* Botão Galeria: borda branca no mobile, borda azul no desktop */}
               <button className="
                 border-4 text-white font-black rounded-2xl shadow-xl transition-all
                 border-white hover:bg-white hover:text-[#0044CA]
@@ -111,15 +116,8 @@ export default function HeroSection() {
           {/* ── COLUNA DIREITA: CARDS ── */}
           <div className="lg:col-span-5 flex flex-col gap-5 w-full max-w-md mx-auto lg:mx-0">
 
-            {/* Label desktop */}
-            <div className="hidden lg:flex items-center gap-4 mb-2 justify-end">
-              <span className="h-[2px] w-12 bg-white/40" />
-              <h3 className="text-white font-black text-xs uppercase tracking-[0.4em]">Roteiros Oficiais</h3>
-            </div>
-
-            {/* Label mobile/tablet */}
-            <div className="flex lg:hidden items-center gap-3 mb-1 justify-center">
-              <span className="h-[2px] w-8 bg-white/50 rounded-full" />
+            <div className="flex items-center gap-3 mb-1 justify-center lg:justify-end lg:mt-32">
+              <span className="h-0.5 w-8 bg-white/50 rounded-full" />
               <span className="text-white font-black text-[10px] uppercase tracking-[0.35em]">Roteiros Oficiais</span>
             </div>
 
@@ -129,10 +127,10 @@ export default function HeroSection() {
                   key={r.label}
                   className="
                     group bg-white/95 hover:bg-[#F9BC00]
-                    p-4 sm:p-6 rounded-[2rem]
+                    p-4 sm:p-6 rounded-4xl
                     shadow-2xl transition-all duration-300
                     flex items-center gap-4 sm:gap-6
-                    cursor-pointer border-b-[10px] border-[#00751D]
+                    cursor-pointer border-b-10 border-[#00751D]
                     hover:-translate-y-1
                   "
                 >
@@ -165,7 +163,7 @@ export default function HeroSection() {
             {/* Badge Histórico */}
             <div className="
               mt-2 sm:mt-4 p-6 sm:p-8
-              bg-[#0044CA] text-white rounded-[2rem]
+              bg-[#0044CA] text-white rounded-4xl
               flex items-center gap-4 sm:gap-6
               border-4 border-[#F9BC00] shadow-2xl
               lg:translate-x-6
