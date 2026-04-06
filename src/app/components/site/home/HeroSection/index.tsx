@@ -1,228 +1,204 @@
 'use client';
 
+import React from 'react';
+
 const ROTEIROS = [
   { href: '/roteiros/jaboatao-em-um-dia', emoji: '☀️', label: 'Jaboatão em um Dia' },
-  { href: '/roteiros/fim-de-semana',      emoji: '🌊', label: 'Fim de Semana em Jaboatão' },
-  { href: '/roteiros/passeio-da-fe',      emoji: '⛪', label: 'Passeio da Fé' },
+  { href: '/roteiros/fim-de-semana', emoji: '🌊', label: 'Fim de Semana' },
+  { href: '/roteiros/passeio-da-fe', emoji: '⛪', label: 'Passeio da Fé' },
 ];
 
-const STRIP = ['Praias & Natureza', 'História & Cultura', 'Gastronomia', 'Turismo Rural', 'Curiosidades'];
+const STRIP = ['Praias', 'História', 'Gastronomia', 'Turismo Rural', 'Cultura'];
 
 export default function HeroSection() {
   return (
-    <section
-      className="relative overflow-hidden flex flex-col"
-      style={{ background: '#F9FAFB', fontFamily: '"Montserrat", "Trebuchet MS", sans-serif' }}
-    >
-      {/* ── Círculos decorativos ── */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+    <section className="relative min-h-screen w-full overflow-hidden bg-white font-sans flex flex-col">
+
+      {/* ── DESIGN DE FUNDO ── */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+
+        {/* Bloco Azul — desktop: diagonal direita; mobile: cobre topo inteiro */}
         <div
-          className="absolute rounded-full"
-          style={{ width: 500, height: 500, background: '#E8641A', opacity: 0.1, top: -200, left: -100 }}
+          className="absolute top-0 right-0 w-full lg:w-[62%] h-[55%] sm:h-[50%] lg:h-full"
+          style={{
+            background: 'linear-gradient(145deg, #0037C1 0%, #0044CA 40%, #00BDFF 100%)',
+            clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 15% 100%)',
+          }}
         />
+
+        {/* Bloco Verde */}
         <div
-          className="absolute rounded-full"
-          style={{ width: 300, height: 300, background: '#1e7e3e', opacity: 0.08, bottom: -80, left: '30%' }}
+          className="absolute bottom-0 right-0 w-full lg:w-[45%] h-[12%] sm:h-[10%] lg:h-[40%] opacity-90 z-10"
+          style={{
+            background: 'linear-gradient(to top right, #00751D 0%, #008C32 50%, #00DD4F 100%)',
+            clipPath: 'polygon(100% 0, 5% 100%, 100% 100%)',
+          }}
+        />
+
+        {/* Sol decorativo */}
+        <div
+          className="absolute top-[-5%] right-[10%] w-48 h-48 sm:w-72 sm:h-72 lg:w-[500px] lg:h-[500px] rounded-full opacity-40"
+          style={{
+            background: 'radial-gradient(circle, #FDC300 0%, #F9BC00 50%, #FF8500 100%)',
+            filter: 'blur(70px)',
+          }}
         />
       </div>
 
-      {/* ── Grid principal ── */}
-      <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 min-h-[90vh]">
+      {/* ── CONTEÚDO PRINCIPAL ── */}
+      <div className="
+        relative z-20 flex-grow mx-auto max-w-7xl w-full
+        px-5 sm:px-8 lg:px-6
+        pt-12 pb-28
+        sm:pt-16 sm:pb-28
+        lg:pt-0 lg:pb-0 lg:flex lg:items-center
+      ">
+        <div className="grid lg:grid-cols-12 gap-10 sm:gap-14 lg:gap-24 items-center w-full">
 
-        {/* ESQUERDA */}
-        <div className="flex flex-col justify-center px-8 py-14 md:px-16 md:py-20">
+          {/* ── COLUNA ESQUERDA ── */}
+          <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left">
 
-          {/* Tag */}
-          <div
-            className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-7 w-fit text-xs font-black uppercase tracking-widest"
-            style={{ background: '#1e7e3e', color: '#F5C518', letterSpacing: '0.15em' }}
-          >
-            <span className="w-1.5 h-1.5 rounded-full" style={{ background: '#F5C518' }} />
-            Pernambuco · Brasil
-          </div>
+            {/* Título: branco no mobile/tablet (sobre fundo azul), azul no desktop */}
+            <h1 className="
+              font-black leading-[0.85] tracking-tighter uppercase italic drop-shadow-sm
+              text-[clamp(3.5rem,13vw,8.5rem)]
+              text-white lg:text-[#0044CA]
+            ">
+              VIVA <br />
+              <span className="inline-block mt-2" style={{ color: '#F9BC00', textShadow: '5px 5px 0px #00751D' }}>
+                JABOATÃO
+              </span>
+            </h1>
 
-          {/* Título */}
-          <h1
-            className="font-black leading-none mb-3"
-            style={{ fontSize: 'clamp(3rem, 5.5vw, 5.5rem)', color: '#1e7e3e', letterSpacing: '-3px' }}
-          >
-            Vem pro<br />
-            <span style={{ color: '#E8641A' }}>Jaboatão</span>
-          </h1>
+            {/* Subtítulo: branco no mobile, escuro no desktop */}
+            <div className="mt-8 lg:mt-16 max-w-xl">
+              <p className="text-base sm:text-xl lg:text-3xl font-bold leading-snug text-white lg:text-slate-800">
+                Onde o{' '}
+                <span className="text-[#7DFFA0] lg:text-[#00751D]">Verde</span>{' '}
+                dos montes abraça o{' '}
+                <span className="text-[#A8D8FF] lg:text-[#0044CA]">Azul</span>{' '}
+                do mar e o{' '}
+                <span className="text-[#F9BC00]">Amarelo</span>{' '}
+                do sol brilha.
+              </p>
+            </div>
 
-          {/* Subtítulo */}
-          <p
-            className="font-bold mb-9 max-w-md"
-            style={{ fontSize: 'clamp(1rem, 1.6vw, 1.15rem)', color: '#1a5c2e', lineHeight: 1.55, opacity: 0.85 }}
-          >
-            Frevo, fé, praias e história.<br />
-            Tudo isso a 20 minutos do Recife.
-          </p>
+            <div className="mt-8 lg:mt-12 flex flex-col sm:flex-row gap-4 sm:gap-6 w-full sm:w-auto">
+              <button className="
+                bg-[#F9BC00] text-[#0044CA]
+                px-10 py-4 sm:px-12 sm:py-5
+                text-lg sm:text-xl font-black rounded-2xl
+                transition-all hover:scale-105 active:scale-95
+                shadow-[8px_8px_0px_#00751D]
+              ">
+                EXPLORAR AGORA
+              </button>
 
-          {/* CTAs */}
-          <div className="flex flex-wrap gap-3 mb-10">
-            <a
-              href="/o-que-conhecer"
-              className="inline-flex items-center gap-2.5 rounded-xl px-8 py-4 text-sm font-black tracking-wide no-underline"
-              style={{ background: '#1e7e3e', color: '#F5C518', letterSpacing: '0.02em', fontSize: 15 }}
-            >
-              Explorar agora
-              <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </a>
-            <a
-              href="#roteiros"
-              className="inline-flex items-center gap-2.5 rounded-xl px-8 py-4 font-black no-underline"
-              style={{ background: 'transparent', color: '#1e7e3e', border: '3px solid #1e7e3e', fontSize: 15 }}
-            >
-              Ver Roteiros
-            </a>
-          </div>
-
-          {/* Cards de roteiros */}
-          <div className="flex flex-col gap-3">
-            {ROTEIROS.map(r => (
-              <a
-                key={r.href}
-                href={r.href}
-                className="flex items-center gap-3.5 rounded-xl no-underline"
-                style={{
-                  background: 'rgba(30,126,62,0.1)',
-                  borderLeft: '4px solid #E8641A',
-                  padding: '12px 18px',
-                }}
-              >
-                <div
-                  className="flex items-center justify-center rounded-xl text-lg shrink-0"
-                  style={{ width: 38, height: 38, background: '#1e7e3e', fontSize: 18 }}
-                >
-                  {r.emoji}
-                </div>
-                <div>
-                  <div
-                    className="text-xs font-bold uppercase"
-                    style={{ color: '#3b8f5a', letterSpacing: '0.08em' }}
-                  >
-                    Roteiro
-                  </div>
-                  <div className="text-sm font-extrabold" style={{ color: '#1a5c2e' }}>
-                    {r.label}
-                  </div>
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
-
-        {/* DIREITA */}
-        <div className="relative flex items-center justify-center overflow-hidden">
-          {/* Fundo laranja diagonal */}
-          <div
-            className="absolute inset-0"
-            style={{ background: '#E8641A', clipPath: 'polygon(8% 0%, 100% 0%, 100% 100%, 0% 100%)' }}
-          />
-
-          <div className="relative z-10 w-full px-10 py-14 md:px-14 md:py-20" style={{ paddingLeft: 'clamp(48px, 7vw, 80px)' }}>
-            <div className="grid grid-cols-2 gap-4">
-
-              {/* Stat largo — 20km */}
-              <div
-                className="col-span-2 flex items-center gap-5 rounded-2xl p-5"
-                style={{ background: 'rgba(255,255,255,0.12)', border: '2px solid rgba(255,255,255,0.25)' }}
-              >
-                <span className="text-3xl">🏖️</span>
-                <div>
-                  <div className="font-black text-white leading-none" style={{ fontSize: 'clamp(2rem, 3.5vw, 3.2rem)' }}>
-                    20km
-                  </div>
-                  <div
-                    className="text-xs font-bold uppercase mt-1 leading-snug"
-                    style={{ color: 'rgba(255,255,255,0.75)', letterSpacing: '0.08em' }}
-                  >
-                    De orla litorânea com praias e piscinas naturais
-                  </div>
-                </div>
-              </div>
-
-              {/* Stat amarelo — 1654 */}
-              <div
-                className="flex flex-col gap-1 rounded-2xl p-5"
-                style={{ background: '#F5C518' }}
-              >
-                <span className="text-2xl mb-1">🏛️</span>
-                <div className="font-black leading-none" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.8rem)', color: '#1e7e3e' }}>
-                  1654
-                </div>
-                <div
-                  className="text-xs font-bold uppercase mt-1 leading-snug"
-                  style={{ color: '#1a5c2e', letterSpacing: '0.08em' }}
-                >
-                  Batalha dos Guararapes
-                </div>
-              </div>
-
-              {/* Stat — 700mil */}
-              <div
-                className="flex flex-col gap-1 rounded-2xl p-5"
-                style={{ background: 'rgba(255,255,255,0.12)', border: '2px solid rgba(255,255,255,0.25)' }}
-              >
-                <span className="text-2xl mb-1">👥</span>
-                <div className="font-black text-white leading-none" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.8rem)' }}>
-                  700<span className="text-base">mil</span>
-                </div>
-                <div
-                  className="text-xs font-bold uppercase mt-1 leading-snug"
-                  style={{ color: 'rgba(255,255,255,0.75)', letterSpacing: '0.08em' }}
-                >
-                  2ª maior cidade de PE
-                </div>
-              </div>
-
-              {/* Stat — Frevo */}
-              <div
-                className="col-span-2 rounded-2xl p-5"
-                style={{ background: 'rgba(255,255,255,0.08)', border: '2px solid rgba(255,255,255,0.15)' }}
-              >
-                <span className="text-2xl block mb-2">🎭</span>
-                <div
-                  className="font-black text-white leading-snug"
-                  style={{ fontSize: 'clamp(1rem, 2vw, 1.4rem)' }}
-                >
-                  Frevo · Maracatu · Fé · Mar
-                </div>
-                <div
-                  className="text-xs font-bold uppercase mt-1.5"
-                  style={{ color: 'rgba(255,255,255,0.65)', letterSpacing: '0.08em' }}
-                >
-                  A alma de Pernambuco mora aqui
-                </div>
-              </div>
-
+              {/* Botão Galeria: borda branca no mobile, borda azul no desktop */}
+              <button className="
+                border-4 text-white font-black rounded-2xl shadow-xl transition-all
+                border-white hover:bg-white hover:text-[#0044CA]
+                lg:bg-white/80 lg:backdrop-blur-sm lg:border-[#0044CA] lg:text-[#0044CA]
+                lg:hover:bg-[#0044CA] lg:hover:text-white
+                px-10 py-4 sm:px-12 sm:py-5
+                text-lg sm:text-xl
+              ">
+                GALERIA
+              </button>
             </div>
           </div>
+
+          {/* ── COLUNA DIREITA: CARDS ── */}
+          <div className="lg:col-span-5 flex flex-col gap-5 w-full max-w-md mx-auto lg:mx-0">
+
+            {/* Label desktop */}
+            <div className="hidden lg:flex items-center gap-4 mb-2 justify-end">
+              <span className="h-[2px] w-12 bg-white/40" />
+              <h3 className="text-white font-black text-xs uppercase tracking-[0.4em]">Roteiros Oficiais</h3>
+            </div>
+
+            {/* Label mobile/tablet */}
+            <div className="flex lg:hidden items-center gap-3 mb-1 justify-center">
+              <span className="h-[2px] w-8 bg-white/50 rounded-full" />
+              <span className="text-white font-black text-[10px] uppercase tracking-[0.35em]">Roteiros Oficiais</span>
+            </div>
+
+            <div className="space-y-4 sm:space-y-5">
+              {ROTEIROS.map((r) => (
+                <div
+                  key={r.label}
+                  className="
+                    group bg-white/95 hover:bg-[#F9BC00]
+                    p-4 sm:p-6 rounded-[2rem]
+                    shadow-2xl transition-all duration-300
+                    flex items-center gap-4 sm:gap-6
+                    cursor-pointer border-b-[10px] border-[#00751D]
+                    hover:-translate-y-1
+                  "
+                >
+                  <div className="
+                    w-12 h-12 sm:w-16 sm:h-16
+                    bg-slate-50 rounded-2xl shrink-0 shadow-sm
+                    flex items-center justify-center
+                    text-3xl sm:text-4xl
+                    group-hover:bg-white
+                  ">
+                    {r.emoji}
+                  </div>
+                  <div className="flex flex-col text-left min-w-0">
+                    <span className="text-[10px] sm:text-xs font-black text-[#00751D] uppercase tracking-tighter opacity-80">
+                      Experiência
+                    </span>
+                    <span className="text-sm sm:text-lg lg:text-xl font-black text-[#0044CA] leading-tight truncate">
+                      {r.label}
+                    </span>
+                  </div>
+                  <div className="ml-auto text-[#0044CA] shrink-0 transform group-hover:scale-125 transition-transform">
+                    <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="4" viewBox="0 0 24 24">
+                      <path d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Badge Histórico */}
+            <div className="
+              mt-2 sm:mt-4 p-6 sm:p-8
+              bg-[#0044CA] text-white rounded-[2rem]
+              flex items-center gap-4 sm:gap-6
+              border-4 border-[#F9BC00] shadow-2xl
+              lg:translate-x-6
+            ">
+              <div className="bg-[#F9BC00] p-3 rounded-2xl text-3xl sm:text-4xl shadow-inner shrink-0">🏛️</div>
+              <div className="text-left">
+                <p className="text-[#F9BC00] font-black text-3xl sm:text-4xl leading-none tracking-tighter">1654</p>
+                <p className="font-bold text-[10px] sm:text-xs uppercase tracking-widest text-white/90 mt-1">
+                  Berço da Pátria Brasileira
+                </p>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
-      {/* ── Faixa inferior verde ── */}
-      <div
-        className="relative z-10 flex items-center justify-center flex-wrap gap-4 md:gap-12 px-8 py-3.5"
-        style={{ background: '#1a5c2e' }}
-      >
-        {STRIP.map(s => (
-          <div
-            key={s}
-            className="flex items-center gap-2 text-xs font-black uppercase"
-            style={{ color: 'rgba(245,197,24,0.85)', letterSpacing: '0.1em' }}
-          >
-            <span
-              className="rounded-full shrink-0"
-              style={{ width: 5, height: 5, background: '#E8641A', display: 'inline-block' }}
-            />
-            {s}
-          </div>
-        ))}
+      {/* ── BARRA INFERIOR ── */}
+      <div className="relative z-30 w-full bg-[#00751D] py-4 sm:py-6 border-t-4 border-[#F9BC00]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-wrap justify-center items-center gap-x-6 sm:gap-x-12 gap-y-3">
+          {STRIP.map((item, i) => (
+            <div key={item} className="flex items-center gap-3 sm:gap-4">
+              <span className="text-white font-black text-[11px] sm:text-[13px] uppercase tracking-[0.25em] sm:tracking-[0.3em] italic">
+                {item}
+              </span>
+              {i < STRIP.length - 1 && (
+                <span className="text-[#F9BC00] font-bold opacity-50 text-xs">★</span>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
+
     </section>
   );
 }
