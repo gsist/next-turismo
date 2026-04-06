@@ -74,7 +74,7 @@ interface NavItem {
 const navigation: NavItem[] = [
   { name: "História", href: "/historia" },
   { name: "O que fazer?", href: "/o-que-conhecer" },
-  { name: "Contato", href: "#contato" },
+  { name: "Contato", href: "/#contato" },
 ];
 
 const TopMenu = () => (

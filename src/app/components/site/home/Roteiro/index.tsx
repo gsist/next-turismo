@@ -5,118 +5,102 @@ import React from 'react';
 const ROTEIROS = [
   {
     slug: 'jaboatao-em-um-dia',
-    emoji: '☀️',
     titulo: 'Jaboatão em um Dia',
     duracao: '1 dia',
-    descricao: 'Do centro histórico às piscinas naturais de Piedade.',
-    paradas: ['Centro Histórico', 'Praça da Batalha', 'Piedade'],
+    img: '/images/Lugares/bg-hotel.jpg',
     cor: '#00751D',
-    corGradiente: 'linear-gradient(135deg, #00751D 0%, #00DD4F 100%)',
-    tag: 'Popular',
   },
   {
     slug: 'fim-de-semana',
-    emoji: '🌊',
     titulo: 'Fim de Semana',
     duracao: '2 dias',
-    descricao: 'Praias, culinária e o interior verde com muito frevo.',
-    paradas: ['Candeias', 'Barra de Jangada', 'Rural'],
+    img: '/images/Lugares/bg-ondeir.jpg',
     cor: '#F9BC00',
-    corGradiente: 'linear-gradient(135deg, #F9BC00 0%, #FF8500 100%)',
-    tag: 'Família',
   },
   {
     slug: 'passeio-da-fe',
-    emoji: '⛪',
     titulo: 'Passeio da Fé',
     duracao: '1 dia',
-    descricao: 'Igrejas históricas e o Parque Nacional dos Guararapes.',
-    paradas: ['Igreja do Rosário', 'Monte', 'Santuário'],
+    img: '/images/Lugares/gastronomia.png',
     cor: '#0044CA',
-    corGradiente: 'linear-gradient(135deg, #0044CA 0%, #00BDFF 100%)',
-    tag: 'Cultural',
   },
 ];
 
 export default function RoteirosSection() {
   return (
-    <section id="roteiros" className="relative lg:h-screen w-full flex flex-col bg-white overflow-hidden font-sans py-12 lg:py-0">
-      
-      {/* Background Decorativo */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-30">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-[#F9BC00]/20 rounded-full blur-[80px]" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#0044CA]/20 rounded-full blur-[80px]" />
+    <section 
+      id="roteiros" 
+      className="relative h-auto lg:h-screen w-full flex flex-col bg-white overflow-hidden py-12 lg:py-8"
+    >
+      {/* Marca d'água */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none opacity-[0.02] text-[15vw] font-black leading-none whitespace-nowrap z-0 hidden lg:block">
+        DESCUBRA
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 flex flex-col justify-center h-full w-full">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 flex flex-col justify-between h-full w-full">
         
-        {/* CABEÇALHO - Compacto no Desktop */}
-        <div className="mb-8 lg:mb-10 text-center lg:text-left">
-          <h2 className="text-4xl lg:text-6xl font-black text-[#0044CA] leading-none tracking-tighter uppercase italic">
-            ROTEIROS <span className="text-[#F9BC00] drop-shadow-[2px_2px_0px_#00751D]">PRONTOS</span>
+        {/* Header - Margens reduzidas para sobrar espaço para os cards */}
+        <div className="mb-6 lg:mb-8 mt-4 lg:mt-6 text-center lg:text-left shrink-0">
+          <h2 className="text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-black text-[#0044CA] tracking-tighter uppercase leading-[0.9] italic">
+            VIVA A <br />
+            <span className="text-transparent" style={{ WebkitTextStroke: '1px #0044CA' }}>
+              EXPERIÊNCIA
+            </span>
           </h2>
-          <p className="mt-2 text-slate-600 font-bold text-sm lg:text-base max-w-xl">
-            Escolha sua rota e descubra o melhor de Jaboatão dos Guararapes.
-          </p>
+          <div className="h-1.5 w-24 bg-[#F9BC00] mt-3 rounded-full mx-auto lg:mx-0" />
         </div>
 
-        {/* GRID DE CARDS - Ajustado para caber na tela */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
-          {ROTEIROS.map((r) => (
+        {/* Grid Interativo - Ocupa o espaço central disponível */}
+        <div className="flex flex-col lg:flex-row gap-4 h-auto lg:flex-1 min-h-0 py-4">
+          {ROTEIROS.map((r, idx) => (
             <div
               key={r.slug}
-              className="group flex flex-col bg-white rounded-4xl border-b-8 border-slate-100 hover:border-[#F9BC00] transition-all shadow-lg hover:shadow-2xl overflow-hidden"
+              className="group relative flex-none h-64 lg:h-full lg:flex-1 overflow-hidden rounded-3xl lg:rounded-[2.5rem] transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] lg:hover:flex-[1.6] cursor-pointer bg-slate-900 shadow-xl"
             >
-              {/* Topo do Card - Menor altura */}
-              <div className="p-5 lg:p-6 text-white" style={{ background: r.corGradiente }}>
-                <div className="flex justify-between items-center mb-3">
-                  <span className="text-3xl">{r.emoji}</span>
-                  <span className="bg-white/20 backdrop-blur-md px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-widest border border-white/30">
-                    {r.tag}
+              <img
+                src={r.img}
+                alt={r.titulo}
+                className="absolute inset-0 w-full h-full object-cover opacity-70 lg:grayscale group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+              />
+
+              <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent z-10" />
+
+              <div className="absolute bottom-5 left-5 right-5 lg:bottom-8 lg:left-8 z-20">
+                <div className="mb-2">
+                  <span
+                    className="px-3 py-1 rounded-full text-[9px] font-black uppercase text-white tracking-widest border border-white/30 backdrop-blur-sm"
+                    style={{ backgroundColor: `${r.cor}cc` }}
+                  >
+                    {r.duracao}
                   </span>
                 </div>
-                <h4 className="text-xl lg:text-2xl font-black uppercase italic leading-tight tracking-tighter">
+                <h3 className="text-xl md:text-2xl lg:text-4xl font-black text-white uppercase leading-none italic tracking-tighter">
                   {r.titulo}
-                </h4>
+                </h3>
+
+                <div className="mt-3 lg:max-h-0 lg:opacity-0 lg:group-hover:max-h-10 lg:group-hover:opacity-100 transition-all duration-500 overflow-hidden">
+                  <span className="inline-flex items-center gap-2 text-[#F9BC00] font-black text-[10px] uppercase tracking-widest">
+                    Explorar Roteiro
+                    <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24" className="hidden lg:block"><path d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                  </span>
+                </div>
               </div>
 
-              {/* Conteúdo do Card - Compacto */}
-              <div className="p-5 lg:p-6 flex flex-col gap-4">
-                <div className="flex gap-2">
-                  <span className="bg-slate-100 px-2 py-1 rounded-md text-[9px] font-black uppercase text-slate-500">
-                    ⏱ {r.duracao}
-                  </span>
-                </div>
-
-                <p className="text-slate-600 font-bold leading-snug text-xs lg:text-sm">
-                  {r.descricao}
-                </p>
-
-                {/* Paradas - Lista simples */}
-                <div className="space-y-1.5">
-                  {r.paradas.map((p) => (
-                    <div key={p} className="flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 rounded-full" style={{ background: r.cor }} />
-                      <span className="text-[11px] lg:text-xs font-bold text-slate-700">{p}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <button 
-                  className="w-full py-3 rounded-xl font-black text-[11px] uppercase tracking-widest transition-all text-white mt-2 shadow-md hover:scale-[1.02] active:scale-95"
-                  style={{ background: r.cor }}
-                >
-                  Ver Roteiro
-                </button>
+              <div className="absolute top-5 left-5 z-20 text-white/30 font-black text-xl italic">
+                0{idx + 1}
               </div>
             </div>
           ))}
         </div>
 
-        {/* Botão de Rodapé - Mais discreto */}
-        <div className="mt-8 lg:mt-10 text-center">
-          <button className="bg-[#0044CA] text-white px-8 py-3 rounded-full font-black text-xs lg:text-sm tracking-widest hover:bg-[#F9BC00] hover:text-[#0044CA] transition-all shadow-[6px_6px_0px_#00751D]">
-            TODOS OS ROTEIROS ★
+        {/* Rodapé da Seção - Com margem inferior para não "colar" no fim da tela */}
+        <div className="mt-6 lg:mt-8 mb-4 lg:mb-6 flex flex-col md:flex-row items-center justify-between border-t border-slate-100 pt-6 gap-6 shrink-0">
+          <p className="text-slate-500 font-bold text-xs max-w-xs text-center md:text-left">
+            Passe o mouse para revelar as cores vibrantes dos destinos.
+          </p>
+
+          <button className="w-full md:w-auto bg-[#0044CA] hover:bg-[#F9BC00] text-white hover:text-[#0044CA] px-8 py-3 rounded-xl font-black uppercase text-xs tracking-widest transition-all shadow-[5px_5px_0px_#00751D] active:translate-y-1 active:shadow-none">
+            Ver Todos os Pontos ★
           </button>
         </div>
 
