@@ -6,8 +6,8 @@ const contact = [
   {
     icon: "📞",
     label: "Telefone",
-    value: "0800 281 2099",
-    link: "tel:08002812099"
+    value: "(81)99821-0398",
+    link: "tel:081998210398"
   },
   {
     icon: "📍",
@@ -23,7 +23,7 @@ const contact = [
 ];
 
 export default function ContactSection() {
-  const whatsappNumber = "5581991956655";
+  const whatsappNumber = "5581998210398";
   const whatsappMessage = encodeURIComponent("Olá! Gostaria de planejar meu roteiro em Jaboatão.");
 
   return (
@@ -99,8 +99,8 @@ export default function ContactSection() {
             {/* CARD EXTRA: SOCIAL/INSTA */}
             <div className="mt-4 p-8 bg-[#0044CA] rounded-[2.5rem] text-white flex justify-between items-center overflow-hidden relative">
                <div className="relative z-10">
-                 <p className="font-black italic uppercase tracking-tighter text-2xl">Siga o Jaboatão</p>
-                 <p className="text-[#F9BC00] font-bold text-sm">@prefeiturajaboatao</p>
+                 <p className="font-black italic uppercase tracking-tighter text-2xl">Siga o Turismo De Jaboatão</p>
+                 <p className="text-[#F9BC00] font-bold text-sm">@turismoruraljaboatao</p>
                </div>
                <div className="text-6xl opacity-20 -rotate-12">📸</div>
             </div>
