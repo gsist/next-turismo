@@ -1,9 +1,9 @@
-import HeroSection from "@/app/components/site/historia";
+import Historia from "@/app/components/site/historia";
 
 export default function PrecadastroPage() {
   return (
     <>
-    <HeroSection />
+    <Historia />
     </>
   );
 }

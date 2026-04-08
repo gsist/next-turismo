@@ -1,3 +1,4 @@
+// src/app/components/site/home/Roteiro/index.tsx
 'use client';
 
 import React from 'react';
