@@ -352,7 +352,7 @@ export default function HistoriaPage() {
           <div className="mb-14 sm:mb-20 text-center">
             <div className="flex items-center gap-3 mb-3 justify-center">
               <span className="w-10 h-1.5 bg-[#F9BC00] rounded-full" />
-              <span className="text-[10px] font-black uppercase tracking-[0.35em] text-slate-400">Cronologia</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.35em] text-slate-600">Cronologia</span>
             </div>
             <h2 className="text-5xl sm:text-7xl font-black text-[#0044CA] leading-[0.85] tracking-tighter uppercase italic">
               A LINHA DO <br />
