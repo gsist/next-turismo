@@ -6,14 +6,12 @@ const contact = [
   {
     icon: "📞",
     label: "Telefone",
-    value: "(81)99821-0398",
-    link: "tel:081998210398"
+    value: "(81) 99821-0398",
   },
   {
     icon: "📍",
     label: "Centro de Informações",
-    value: "Complexo Administrativo, Jaboatão Centro",
-    link: "https://maps.google.com/?q=Prefeitura+de+Jaboatao+dos+Guararapes"
+    value: "Complexo Administrativo da Prefeitura do Jaboatão Dos Guararapes",
   },
   {
     icon: "🕐",
@@ -25,6 +23,19 @@ const contact = [
 export default function ContactSection() {
   const whatsappNumber = "5581998210398";
   const whatsappMessage = encodeURIComponent("Olá! Gostaria de planejar meu roteiro em Jaboatão.");
+
+  const handleClick = (phone: string, e: React.MouseEvent) => {
+  e.preventDefault();
+
+  const isMobile = window.matchMedia('(pointer: coarse)').matches;
+
+  if (isMobile) {
+    const cleanNumber = phone.replace(/\D/g, '');
+    window.open(`tel:${cleanNumber}`);
+    }
+  };
+
+
 
   return (
     <section id="contato" className="relative min-h-screen lg:h-screen w-full flex items-center bg-[#e3e7ef] overflow-hidden py-20 lg:py-0">
@@ -74,24 +85,30 @@ export default function ContactSection() {
                 <div className="w-16 h-16 rounded-2xl bg-slate-50 flex items-center justify-center text-3xl group-hover:bg-[#F9BC00] transition-colors">
                   {c.icon}
                 </div>
-                
                 <div className="flex flex-col text-left">
                   <span className="text-[10px] font-black uppercase tracking-widest text-[#00751D] mb-1">
                     {c.label}
                   </span>
-                  {c.link ? (
+                    {c.label === 'Centro de Informações' ? (
                     <a 
-                      href={c.link} 
+                      href={`https://www.google.com/maps?q=${encodeURIComponent(c.value)}`} 
                       target="_blank" 
+                      rel="noopener noreferrer"
                       className="text-lg lg:text-xl font-black text-[#0044CA] hover:text-[#F9BC00] transition-colors leading-tight"
+                      style={{ cursor: "pointer" }}
                     >
                       {c.value}
                     </a>
-                  ) : (
-                    <span className="text-lg lg:text-xl font-black text-[#0044CA] leading-tight">
-                      {c.value}
-                    </span>
-                  )}
+                    ) : c.label === 'Telefone' ? (
+                    <a 
+                      className="text-lg lg:text-xl font-black text-[#0044CA] hover:text-[#F9BC00] transition-colors leading-tight"
+                      onClick={(e) => handleClick(c.value, e)}
+                      >
+                        {c.value}
+                    </a>
+                    ) : (
+                      <span className="text-lg lg:text-xl font-black text-[#0044CA] hover:text-[#F9BC00] transition-colors leading-tight">{c.value}</span>
+                    )}
                 </div>
               </div>
             ))}
