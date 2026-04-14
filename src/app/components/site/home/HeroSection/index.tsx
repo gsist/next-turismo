@@ -9,7 +9,7 @@ const ROTEIROS = [
   { href: '/roteiros/passeio-da-fe', emoji: '⛪', label: 'Passeio da Fé' },
 ];
 
-const STRIP = ['Praias', 'História', 'Gastronomia', 'Turismo Rural', 'Cultura'];
+const STRIP = ['Praias', 'História & Cultura', 'Gastronomia', 'Artesanato', 'Festas', 'Turismo Rural'];
 
 export default function HeroSection() {
   return (
@@ -83,7 +83,7 @@ export default function HeroSection() {
                 Onde o{' '}
                 <span className="text-[#7DFFA0] lg:text-[#00751D]">Verde</span>{' '}
                 dos montes abraça o{' '}
-                <span className="text-[#A8D8FF] lg:text-[#0044CA]">Azul</span>{' '}
+                <span className="text-[#A8D8FF] lg:text-[#5282e0]">Azul</span>{' '}
                 do mar e o{' '}
                 <span className="text-[#F9BC00]">Amarelo</span>{' '}
                 do sol brilha.
