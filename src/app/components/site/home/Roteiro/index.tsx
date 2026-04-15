@@ -33,11 +33,6 @@ export default function RoteirosSection() {
       id="roteiros" 
       className="relative h-auto lg:h-screen w-full flex flex-col bg-white overflow-hidden py-12 lg:py-8"
     >
-      {/* Marca d'água */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none opacity-[0.02] text-[15vw] font-black leading-none whitespace-nowrap z-0 hidden lg:block">
-        DESCUBRA
-      </div>
-
       <div className="relative z-10 max-w-7xl mx-auto px-6 flex flex-col justify-between h-full w-full">
         
         {/* Header - Margens reduzidas para sobrar espaço para os cards */}
