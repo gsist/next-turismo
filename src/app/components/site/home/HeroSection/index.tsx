@@ -83,7 +83,7 @@ export default function HeroSection() {
                 Onde o{' '}
                 <span className="text-[#7DFFA0] lg:text-[#00751D]">Verde</span>{' '}
                 dos montes abraça o{' '}
-                <span className="text-[#A8D8FF] lg:text-[#5282e0]">Azul</span>{' '}
+                <span className="text-[#A8D8FF] lg:text-[#cee9ff]">Azul</span>{' '}
                 do mar e o{' '}
                 <span className="text-[#F9BC00]">Amarelo</span>{' '}
                 do sol brilha.
