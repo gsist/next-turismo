@@ -302,7 +302,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
-                    href="https://backendjaboataoprev.jaboatao.pe.gov.br/"
+                    href="https://jaboataoprev.jaboatao.pe.gov.br/"
                     className="hover:underline"
                     target="_blank"
                     rel="noreferrer"
