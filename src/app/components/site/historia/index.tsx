@@ -1,7 +1,7 @@
-// src/app/historia/page.tsx  (ou components/site/historia/HistoriaPage.tsx)
+// src/app/historia/page.tsx (ou components/site/historia/HistoriaPage.tsx)
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 /* ─────────────────────────────────────────────
    DADOS
@@ -72,6 +72,7 @@ const PONTOS = [
 
 const BATALHAS = [
   {
+    id: '1630',
     ano: '1630',
     evento: 'Invasão Holandesa',
     desc: 'A Companhia das Índias Ocidentais toma Recife e Olinda, iniciando 24 anos de ocupação no Nordeste brasileiro.',
@@ -79,6 +80,7 @@ const BATALHAS = [
     cor: '#0044CA',
   },
   {
+    id: '1645',
     ano: '1645',
     evento: 'Insurreição Pernambucana',
     desc: 'Colonos luso-brasileiros, indígenas e africanos se unem espontaneamente contra o domínio holandês — nasce a resistência.',
@@ -86,6 +88,7 @@ const BATALHAS = [
     cor: '#00751D',
   },
   {
+    id: '1648',
     ano: 'ABR\n1648',
     evento: '1ª Batalha dos Guararapes',
     desc: 'No Monte dos Guararapes, as forças de resistência vencem os holandeses pela primeira vez. Henrique Dias, Felipe Camarão e André Vidal de Negreiros lideram o combate.',
@@ -94,6 +97,7 @@ const BATALHAS = [
     destaque: true,
   },
   {
+    id: '1649',
     ano: 'FEV\n1649',
     evento: '2ª Batalha dos Guararapes',
     desc: 'Segunda derrota definitiva dos holandeses no mesmo Monte. A vitória consolida a resistência e prenuncia a expulsão total.',
@@ -102,6 +106,7 @@ const BATALHAS = [
     destaque: true,
   },
   {
+    id: '1654',
     ano: '1654',
     evento: 'Capitulação Holandesa',
     desc: 'Os holandeses assinam a capitulação e deixam definitivamente o Brasil. Jaboatão é reconhecida como o Berço da Pátria — onde nasceu o sentimento de nação brasileira.',
@@ -109,6 +114,7 @@ const BATALHAS = [
     cor: '#0044CA',
   },
   {
+    id: 'hoje',
     ano: 'HOJE',
     evento: 'Patrimônio e Memória Viva',
     desc: 'O Monte dos Guararapes é Patrimônio Histórico Nacional. Cada ano, milhares de visitantes sobem seus caminhos para entender onde o Brasil aprendeu a ser Brasil.',
@@ -123,6 +129,33 @@ const BATALHAS = [
 
 export default function HistoriaPage() {
   const [pontoAtivo, setPontoAtivo] = useState<string | null>(null);
+  
+  // Refs para cada item da linha do tempo
+  const timelineRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+  // Ref para a seção de pontos históricos
+  const pontosSectionRef = useRef<HTMLElement | null>(null);
+  // Ref para o card da fundação
+  const fundacaoCardRef = useRef<HTMLDivElement | null>(null);
+
+  const scrollToTimelineItem = (id: string) => {
+    const element = timelineRefs.current[id];
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
+
+  const abrirPontoFundacao = () => {
+    // Primeiro scroll até a seção de pontos
+    const pontosSection = document.getElementById('pontos');
+    if (pontosSection) {
+      pontosSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    
+    // Depois abre o card da fundação
+    setTimeout(() => {
+      setPontoAtivo('fundacao');
+    }, 500);
+  };
 
   return (
     <main className="w-full bg-[#e3e7ef] font-sans overflow-x-hidden">
@@ -194,13 +227,20 @@ export default function HistoriaPage() {
             {/* Direita — cards resumo */}
             <div className="lg:col-span-6 flex flex-col gap-4">
               {[
-                { ano: '1593', titulo: 'Fundação', emoji: '📜', cor: '#00751D' },
-                { ano: '1648', titulo: '1ª Batalha dos Guararapes', emoji: '⚔️', cor: '#0044CA' },
-                { ano: '1654', titulo: 'Berço da Pátria', emoji: '🇧🇷', cor: '#F9BC00' },
+                { id: '1593', ano: '1593', titulo: 'Fundação', emoji: '📜', cor: '#00751D', acao: 'fundacao' },
+                { id: '1648', ano: '1648', titulo: '1ª Batalha dos Guararapes', emoji: '⚔️', cor: '#0044CA', acao: 'timeline' },
+                { id: '1654', ano: '1654', titulo: 'Berço da Pátria', emoji: '🇧🇷', cor: '#F9BC00', acao: 'timeline' },
               ].map((m) => (
                 <div
-                  key={m.ano}
-                  className="group bg-white/95 backdrop-blur-sm p-5 lg:p-6 rounded-4xl shadow-xl flex items-center gap-6 border-l-10 transition-all hover:scale-[1.02]"
+                  key={m.id}
+                  onClick={() => {
+                    if (m.acao === 'fundacao') {
+                      abrirPontoFundacao();
+                    } else {
+                      scrollToTimelineItem(m.id);
+                    }
+                  }}
+                  className="group bg-white/95 backdrop-blur-sm p-5 lg:p-6 rounded-4xl shadow-xl flex items-center gap-6 border-l-10 transition-all hover:scale-[1.02] cursor-pointer"
                   style={{ borderLeftColor: m.cor }}
                 >
                   <div className="flex flex-col items-center justify-center shrink-0">
@@ -210,6 +250,9 @@ export default function HistoriaPage() {
                   <div className="h-12 w-px bg-slate-200 hidden sm:block" />
                   <div className="text-left">
                     <h4 className="font-black text-[#0044CA] uppercase italic text-lg leading-tight">{m.titulo}</h4>
+                    {m.acao === 'fundacao' && (
+                      <span className="text-[10px] font-bold text-[#00751D] mt-1 block">Clique para ver detalhes →</span>
+                    )}
                   </div>
                 </div>
               ))}
@@ -229,7 +272,7 @@ export default function HistoriaPage() {
       {/* ══════════════════════════════════════
           SEÇÃO: PONTOS HISTÓRICOS
       ══════════════════════════════════════ */}
-      <section id="pontos" className="relative w-full bg-white py-20 sm:py-28 overflow-hidden">
+      <section id="pontos" ref={pontosSectionRef} className="relative w-full bg-white py-20 sm:py-28 overflow-hidden">
 
         <div className="absolute top-0 right-0 w-[40%] h-1.5 bg-[#F9BC00]" />
 
@@ -256,6 +299,7 @@ export default function HistoriaPage() {
               return (
                 <div
                   key={ponto.id}
+                  ref={ponto.id === 'fundacao' ? fundacaoCardRef : null}
                   className="group rounded-4xl overflow-hidden shadow-xl cursor-pointer transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl"
                   style={{ borderBottom: `6px solid ${ponto.cor}` }}
                   onClick={() => setPontoAtivo(aberto ? null : ponto.id)}
@@ -373,7 +417,8 @@ export default function HistoriaPage() {
                 const isLeft = item.lado === 'left';
                 return (
                   <div
-                    key={item.ano}
+                    key={item.id}
+                    ref={(el) => { timelineRefs.current[item.id] = el; }}
                     className={`relative flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-0 ${
                       isLeft ? 'sm:flex-row' : 'sm:flex-row-reverse'
                     }`}
