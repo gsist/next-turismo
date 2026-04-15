@@ -181,10 +181,6 @@ export default function HistoriaPage() {
               clipPath: 'polygon(0% 100%, 100% 100%, 0% 0%)',
             }}
           />
-          {/* Watermark */}
-          <div className="absolute top-1/2 -translate-y-1/2 right-[-5%] pointer-events-none select-none opacity-[0.03] text-[22vw] font-black leading-none text-[#0044CA] hidden lg:block">
-            1654
-          </div>
         </div>
 
         <div className="relative z-20 grow mx-auto max-w-7xl px-5 sm:px-8 flex items-center w-full min-h-screen">
@@ -385,9 +381,6 @@ export default function HistoriaPage() {
             className="absolute top-0 left-0 w-full h-2"
             style={{ background: 'linear-gradient(to right, #00751D, #F9BC00, #0044CA)' }}
           />
-          <div className="absolute bottom-[-5%] left-[-3%] pointer-events-none select-none opacity-[0.03] text-[28vw] font-black leading-none text-[#0044CA] hidden lg:block">
-            1648
-          </div>
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto px-5 sm:px-8">
