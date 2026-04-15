@@ -116,9 +116,9 @@ export default function ContactSection() {
             {/* CARD EXTRA: SOCIAL/INSTA */}
             <div className="mt-4 p-8 bg-[#0044CA] rounded-[2.5rem] text-white flex justify-between items-center overflow-hidden relative">
                <div className="relative z-10">
-                 <p className="font-black italic uppercase tracking-tighter text-2xl">Siga o Turismo De Jaboatão</p>
-                 <a href={`https://www.instagram.com/turismoruraljaboatao`} 
-                 className="text-[#F9BC00] font-bold text-sm">@turismoruraljaboatao</a>
+                 <a href={`https://www.instagram.com/turismoruraljaboatao`} className="font-black italic uppercase tracking-tighter text-2xl">Siga o Turismo De Jaboatão</a>
+                 <br />
+                 <a href={`https://www.instagram.com/turismoruraljaboatao`} className="text-[#F9BC00] font-bold text-sm">@turismoruraljaboatao</a>
                </div>
                <div className="text-6xl opacity-20 -rotate-12">📸</div>
             </div>
