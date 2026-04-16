@@ -29,12 +29,12 @@ const ROTEIROS = [
 
 export default function RoteirosSection() {
   return (
-    <section 
-      id="roteiros" 
+    <section
+      id="roteiros"
       className="relative h-auto lg:h-screen w-full flex flex-col bg-white overflow-hidden py-12 lg:py-8"
     >
       <div className="relative z-10 max-w-7xl mx-auto px-6 flex flex-col justify-between h-full w-full">
-        
+
         {/* Header - Margens reduzidas para sobrar espaço para os cards */}
         <div className="mb-6 lg:mb-8 mt-4 lg:mt-6 text-center lg:text-left shrink-0">
           <h2 className="text-4xl md:text-5xl lg:text-7xl xl:text-8xl font-black text-[#0044CA] tracking-tighter uppercase leading-[0.9] italic">
