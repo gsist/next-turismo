@@ -178,7 +178,7 @@ const PONTOS_TURISTICOS = {
 
 export default function PontosExperiencia() {
   return (
-    <div className="min-h-screen bg-white py-12 mt-32">
+    <div className="min-h-screen bg-[#e8e8e8] py-12 mt-32">
       
       {/* Header simples */}
       <div className="max-w-7xl mx-auto px-6 text-center mb-12">
