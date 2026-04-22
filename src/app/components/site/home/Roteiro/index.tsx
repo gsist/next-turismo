@@ -96,7 +96,7 @@ export default function RoteirosSection() {
           </p>
 
           <a 
-            href="/pontos-experiencia"
+            href="/roteiros"
             className="w-full md:w-auto bg-[#0044CA] hover:bg-[#F9BC00] text-white hover:text-[#0044CA] px-8 py-3 rounded-xl font-black uppercase text-xs tracking-widest transition-all shadow-[5px_5px_0px_#00751D] active:translate-y-1 active:shadow-none inline-block text-center"
           >
             Ver Todos os Pontos &#9733;

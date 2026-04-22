@@ -74,6 +74,7 @@ interface NavItem {
 const navigation: NavItem[] = [
   { name: "História", href: "/historia" },
   { name: "O que fazer?", href: "/o-que-conhecer" },
+  { name: "Roteiros", href: "/roteiros" },
   { name: "Contato", href: "/#contato" },
 ];
 
