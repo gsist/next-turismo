@@ -33,14 +33,14 @@ const CATEGORIAS = [
     titulo: 'HISTÓRIA\n& CULTURA',
     subtitulo: 'Berço da Pátria',
     descricao:
-      'Jaboatão dos Guararapes é Berço da Pátria Brasileira. Foi no Monte dos Guararapes que nasceu o sentimento de nação — palco das históricas Batalhas de 1648 e 1654. Igrejas históricas, miradouros, museus e esculturas revelam 370 anos de história.',
+      'Jaboatão é Berço da Pátria com 370 anos de história. Monte dos Guararapes, Museus, Bibliotecas, Casarões históricos, Esculturas e Painéis celebram a identidade nacional e cultural.',
     destaques: [
-      { emoji: '⚔️', nome: 'Parque Histórico Nacional Monte dos Guararapes', desc: 'Palco das Batalhas que forjaram a identidade nacional brasileira.' },
-      { emoji: '👁️', nome: 'Mirante Henrique Dias', desc: 'Exposição e monumentos que contam a origem do sentimento nacional.' },
-      { emoji: '👁️', nome: 'Mirante André Vidal de Negreiros', desc: 'Belvedere no Monte dos Guararapes com vista panorâmica da região.' },
-      { emoji: '⛪', nome: 'Santuário N. Sra. dos Prazeres', desc: 'Um dos maiores templos com azulejos portugueses do Brasil, no Monte dos Guararapes.' },
-      { emoji: '🎭', nome: 'Espaço Vida Marinha', desc: 'Espaço de educação ambiental dedicado à preservação marinha em Piedade.' },
-      { emoji: '📜', nome: 'Instituto Histórico de Jaboatão', desc: 'Acervo histórico preservando a memória e identidade da cidade.' },
+      { emoji: '⚔️', nome: 'Parque Histórico Nacional Monte dos Guararapes', desc: 'Palco das Batalhas (1648 e 1654)\nque forjaram a identidade nacional brasileira.' },
+      { emoji: '📚', nome: 'Biblioteca Municipal Poeta Benedito Cunha Melo', desc: 'Rua Marilita Martins, 47, Centro\nTel: (81) 99590-0139\n@bibliotecamunicipaljaboatao' },
+      { emoji: '🏛️', nome: 'Casa da Cultura', desc: 'Praça N. Sra. do Rosário, SN\nEspaço de expressão artística e cultural.' },
+      { emoji: '🎭', nome: 'Instituto Histórico de Jaboatão', desc: 'Rua Desembargador Henrique Capitulino, 65\nTel: (81) 3481-4659\nwww.ihj.com.br/' },
+      { emoji: '🗿', nome: 'Esculturas & Monumentos', desc: 'Estátua de Lula Cortês, Busto de Padre Chromácio Leão\nLetreiros "Eu amo Jaboatão" em 3 pontos da cidade.' },
+      { emoji: '🏭', nome: 'Engenhos Históricos', desc: 'Engenho Macujé, Engenho Megaype, Engenho Sant\'Anna\nPatrimônio da história açucareira.' },
     ],
     tag: 'HISTÓRIA',
   },
@@ -53,14 +53,14 @@ const CATEGORIAS = [
     titulo: 'IGREJAS &\nTEMPLOS',
     subtitulo: 'Fé e patrimônio',
     descricao:
-      'Jaboatão possui um rico acervo de igrejas e capelas, muitas com arquitetura colonial e décadas de história. Espaços de devoção e patrimônio cultural.',
+      'Jaboatão possui um rico acervo de igrejas e capelas, muitas com arquitetura colonial. Santuários, conventos e espaços religiosos que contam a história espiritual da cidade.',
     destaques: [
-      { emoji: '⛪', nome: 'Matriz de Santo Amaro', desc: 'Centro paroquial histórico na Rua Santo Amaro, Centro.' },
-      { emoji: '⛪', nome: 'Igreja de N. Sra. da Piedade', desc: 'Igrejinha histórica na Avenida Beira Mar, Piedade.' },
-      { emoji: '⛪', nome: 'Paróquia N. Sra. do Rosário - Centro', desc: 'Igreja matriz no coração da cidade.' },
-      { emoji: '⛪', nome: 'Basílica de N. Sra. Auxiliadora', desc: 'Primeira Basílica em zona rural do mundo, na Colônia Salesiana, Vila Rica.' },
-      { emoji: '⛪', nome: 'Paróquia N. Sra. do Rosário - Prazeres', desc: 'Templo religioso em Prazeres com rica história.' },
-      { emoji: '⛪', nome: 'Paróquia N. Sra. das Candeias', desc: 'Igreja em Candeias, importante centro de devoção.' },
+      { emoji: '⛪', nome: 'Matriz de Santo Amaro', desc: 'Rua Santo Amaro, 21, Centro\nTel: (81) 3481-0263\n@paroquiasantoamaro/' },
+      { emoji: '⛪', nome: 'Santuário N. Sra. dos Prazeres', desc: 'Rua Ladeira da Igreja, SN, Prazeres\nTel: (81) 99692-7547\n@santuarionsprazeres/' },
+      { emoji: '⛪', nome: 'Basílica de N. Sra. Auxiliadora', desc: 'Rua Colônia dos Padres, 431, Vila Rica\nTel: (81) 98435-4218\n@coloniasalesiana/' },
+      { emoji: '⛪', nome: 'Igreja de N. Sra. da Piedade', desc: 'Avenida Beira Mar, 114, Piedade\nTel: (79) 99154-9395' },
+      { emoji: '⛪', nome: 'Paróquia N. Sra. do Rosário - Centro', desc: 'Avenida Barão de Lucena, SN, Centro\nTel: (81) 99144-5563' },
+      { emoji: '⛪', nome: 'Paróquia N. Sra. das Candeias', desc: 'Avenida Ulisses Montarroyos, 6375, Candeias\nTel: (81) 99908-1142' },
     ],
     tag: 'RELIGIÃO',
   },
@@ -75,14 +75,34 @@ const CATEGORIAS = [
     descricao:
       'O artesanato jaboatonense é destaque nacional e internacional. Ateliês criativos abrigam mestres escultores, artesãos e artistas plásticos que levam a alma pernambucana para além das fronteiras.',
     destaques: [
-      { emoji: '🗿', nome: 'Ateliê Nicola', desc: 'Avenida Comercial, 8383, Candeias. Esculturas e arte. Tel: (81) 3469-0421' },
-      { emoji: '🎨', nome: 'Ateliê Alex Mont\'Elberto', desc: 'Rua Médico Vicente Fonseca, 941, Candeias. Tel: (81) 3474-3996' },
-      { emoji: '🪡', nome: 'Ateliê Iara Tenório', desc: 'Rua Antônio de Farias, 580. Artes diversas. Tel: (81) 98757-6467' },
-      { emoji: '🪘', nome: 'Ateliê Mestre Saúba', desc: 'Rua João Martins, 16, Vila Rica. Tel: (81) 3482-7383' },
-      { emoji: '🎭', nome: 'Ateliê Domingos e Patrícia Barros', desc: 'Rua Igarassu, 1964. Design e criatividade. Tel: (81) 3361-1965' },
-      { emoji: '✨', nome: 'Oficina de Formas', desc: 'Rua Consuelo Leandro Dutra, 215. Arte criativa.' },
+      { emoji: '🗿', nome: 'Ateliê Nicola', desc: 'Avenida Comercial, 8383, Candeias\nTel: (81) 3469-0421\nEsculturas e arte.' },
+      { emoji: '🎨', nome: 'Ateliê Alex Mont\'Elberto', desc: 'Rua Médico Vicente Fonseca, 941, Candeias\nTel: (81) 3474-3996\n@alexmontelberto' },
+      { emoji: '🪡', nome: 'Ateliê Iara Tenório', desc: 'Rua Antônio de Farias, 580\nTel: (81) 98757-6467\nArtes diversas.' },
+      { emoji: '🪘', nome: 'Ateliê Mestre Saúba', desc: 'Rua João Martins, 16, Vila Rica\nTel: (81) 3482-7383\n@mestresauba' },
+      { emoji: '🎭', nome: 'Ateliê Domingos e Patrícia Barros', desc: 'Rua Igarassu, 1964\nTel: (81) 3361-1965\nDesign e criatividade.' },
+      { emoji: '✨', nome: 'Oficina de Formas', desc: 'Rua Consuelo Leandro Dutra, 215\nArte criativa e colaborativa.' },
     ],
     tag: 'ARTE',
+  },
+  {
+    id: 'festividades',
+    emoji: '🎉',
+    label: 'Festividades',
+    cor: '#F9BC00',
+    corTexto: '#0044CA',
+    titulo: 'FESTIVI\nDADES',
+    subtitulo: 'É festa o ano inteiro',
+    descricao:
+      'Jaboatão celebra o ano todo com festividades religiosas, culturais e populares. Santo Amaro, N. Sra. dos Prazeres, Carnaval e São João animam a cidade com muita música, fé e hospitalidade.',
+    destaques: [
+      { emoji: '⛪', nome: 'Festa de Santo Amaro', desc: 'Rua Santo Amaro, Centro\nTel: (81) 3481-0263\nCelebração do padroeiro com muita fé.' },
+      { emoji: '⛪', nome: 'Festa de N. Sra. dos Prazeres', desc: 'Monte dos Guararapes, Prazeres\nTel: (81) 99692-7547\nUma das maiores celebrações de PE.' },
+      { emoji: '🌺', nome: 'Festa de Iemanjá', desc: 'Barra de Jangada\nCelebração das tradições afro-brasileiras\ncom rituais e oferendas.' },
+      { emoji: '✝️', nome: 'Festa de N. Sra. da Piedade', desc: 'Praia de Piedade\nDevoção e tradição com procissões\ne celebrações.' },
+      { emoji: '🥁', nome: 'Carnaval de Jaboatão', desc: 'Frevo, maracatu e toda a energia\nda folia pernambucana nas ruas.' },
+      { emoji: '⭐', nome: 'São João em Jaboatão', desc: 'Junho em toda a cidade\nQuadrilhas, forró e comidas típicas\npor todo o mês.' },
+    ],
+    tag: 'FESTAS',
   },
   {
     id: 'compras',
@@ -95,34 +115,14 @@ const CATEGORIAS = [
     descricao:
       'De galerias comerciais a shopping centers, Jaboatão oferece diversas opções de compras. Encontre artesanato, moda, farmácias e tudo mais no melhor da cidade.',
     destaques: [
-      { emoji: '🏬', nome: 'Shopping Guararapes Open Mall', desc: 'Avenida Bernardo Vieira de Melo, 209. Tel: (81) 3093-1809' },
-      { emoji: '🏬', nome: 'The Garden Open Mall', desc: 'Avenida Barreto Menezes, 800. Tel: (81) 2122-2211' },
-      { emoji: '🏪', nome: 'Casa Rosário Colab', desc: 'Galeria colaborativa na Rua Santo Amaro, 97. Artesanato local.' },
-      { emoji: '🏪', nome: 'Shopping Yapoatan Center', desc: 'Rua Bernardo Vieira de Melo, 14. Compras variadas.' },
-      { emoji: '💊', nome: 'Drogaria São Paulo', desc: 'Rua Dr. Aniceto Varejão, 4455. Tel: (81) 3096-0751' },
-      { emoji: '💊', nome: 'Pague Menos', desc: 'Rua Dr. Aniceto Varejão, 100. Tel: (81) 4002-8282' },
+      { emoji: '🏬', nome: 'Shopping Guararapes Open Mall', desc: 'Avenida Bernardo Vieira de Melo, 209\nTel: (81) 3093-1809\nwww.shoppingguararapes.com' },
+      { emoji: '🏬', nome: 'The Garden Open Mall', desc: 'Avenida Barreto Menezes, 800\nTel: (81) 2122-2211\n@thegardenopenmall' },
+      { emoji: '🏪', nome: 'Casa Rosário Colab', desc: 'Rua Santo Amaro, 97\nGaleria colaborativa com artesanato local\ne produtos sustentáveis.' },
+      { emoji: '🏪', nome: 'Shopping Yapoatan Center', desc: 'Rua Bernardo Vieira de Melo, 14\nCompras variadas e diversas opções\ncomerciais.' },
+      { emoji: '💊', nome: 'Drogaria São Paulo', desc: 'Rua Dr. Aniceto Varejão, 4455\nTel: (81) 3096-0751\nwww.drogariasaopaulo.com.br' },
+      { emoji: '💊', nome: 'Pague Menos', desc: 'Rua Dr. Aniceto Varejão, 100\nTel: (81) 4002-8282\nCadeia nacional de drogarias.' },
     ],
     tag: 'COMPRAS',
-  },
-  {
-    id: 'festividades',
-    emoji: '🎉',
-    label: 'Festividades',
-    cor: '#F9BC00',
-    corTexto: '#0044CA',
-    titulo: 'FESTIVI\nDADES',
-    subtitulo: 'É festa o ano inteiro',
-    descricao:
-      'Jaboatão celebra o ano todo com festividades religiosas, culturais e populares. Santo Amaro, N. Sra. dos Prazeres, Carnaval e São João animam a cidade com muita música, fé e hospitalidade nordestina.',
-    destaques: [
-      { emoji: '⛪', nome: 'Festa de Santo Amaro', desc: 'Rua Santo Amaro, Centro. Celebração do padroeiro da cidade com muita fé e alegria.' },
-      { emoji: '⛪', nome: 'Festa de N. Sra. dos Prazeres', desc: 'Uma das maiores celebrações religiosas de Pernambuco, no Monte dos Guararapes.' },
-      { emoji: '🌺', nome: 'Festa de Iemanjá', desc: 'Celebração das tradições afro-brasileiras em Barra de Jangada.' },
-      { emoji: '✝️', nome: 'Festa de N. Sra. da Piedade', desc: 'Devoção e tradição na histórica praia de Piedade.' },
-      { emoji: '🥁', nome: 'Carnaval de Jaboatão', desc: 'Frevo, maracatu e toda a energia da folia pernambucana.' },
-      { emoji: '⭐', nome: 'São João em Jaboatão', desc: 'Quadrilhas, forró e comidas típicas animam junho inteiro.' },
-    ],
-    tag: 'FESTAS',
   },
   {
     id: 'atrativos-naturais',
@@ -295,11 +295,11 @@ export default function OQueConhecerSection() {
             {categoria.destaques.map((dest, i) => (
               <div
                 key={dest.nome}
-                className="group bg-white rounded-3xl p-5 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 cursor-pointer flex items-start gap-4 border-b-4"
+                className="bg-white rounded-3xl p-5 shadow-lg flex items-start gap-4 border-b-4"
                 style={{ borderBottomColor: categoria.cor }}
               >
                 <div
-                  className="w-12 h-12 shrink-0 rounded-2xl flex items-center justify-center text-2xl shadow-sm transition-transform group-hover:scale-110"
+                  className="w-12 h-12 shrink-0 rounded-2xl flex items-center justify-center text-2xl shadow-sm"
                   style={{ backgroundColor: `${categoria.cor}18` }}
                 >
                   {dest.emoji}
@@ -311,17 +311,9 @@ export default function OQueConhecerSection() {
                   >
                     {dest.nome}
                   </h4>
-                  <p className="text-xs text-slate-500 font-bold mt-1 leading-snug">
+                  <p className="text-xs text-slate-500 font-bold mt-1 leading-relaxed whitespace-pre-line">
                     {dest.desc}
                   </p>
-                </div>
-                <div
-                  className="ml-auto shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ color: categoria.cor }}
-                >
-                  <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
-                    <path d="M9 5l7 7-7 7" />
-                  </svg>
                 </div>
               </div>
             ))}
