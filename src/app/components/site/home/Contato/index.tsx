@@ -6,7 +6,7 @@ const contact = [
   {
     icon: "📞",
     label: "Telefone",
-    value: "(81)99827-0398",
+    value: "(81) 99827-0398",
   },
   {
     icon: "📍",
@@ -21,7 +21,7 @@ const contact = [
 ];
 
 export default function ContactSection() {
-  const whatsappNumber = "5581998210398";
+  const whatsappNumber = "5581998270398";
   const whatsappMessage = encodeURIComponent("Olá! Gostaria de planejar meu roteiro em Jaboatão.");
 
   const handleClick = (phone: string, e: React.MouseEvent) => {
@@ -52,7 +52,7 @@ export default function ContactSection() {
           {/* COLUNA ESQUERDA: TEXTO */}
           <div className="text-center lg:text-left">
             <div className="inline-block px-4 py-2 bg-[#F9BC00]/20 rounded-lg mb-6">
-               <span className="text-xs font-black uppercase tracking-[0.3em] text-[#00751D]">Fale com a Gente</span>
+              <span className="text-xs font-black uppercase tracking-[0.3em] text-[#00751D]">Fale com a Gente</span>
             </div>
             
             <h2 className="text-5xl lg:text-8xl font-black text-[#0044CA] leading-[0.85] tracking-tighter uppercase italic mb-8">
