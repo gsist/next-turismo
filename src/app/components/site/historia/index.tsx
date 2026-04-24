@@ -488,20 +488,6 @@ export default function HistoriaPage() {
           <p className="text-white/80 font-bold text-base sm:text-lg max-w-md mx-auto leading-snug mb-10">
             Suba o Monte dos Guararapes e sinta onde o Brasil nasceu. Uma experiência que transforma.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="/roteiros/passeio-da-fe"
-              className="bg-[#F9BC00] text-[#0044CA] px-10 py-4 rounded-2xl font-black text-sm tracking-widest hover:scale-105 transition-all shadow-[6px_6px_0px_#00751D] text-center"
-            >
-              ROTEIRO DO PASSEIO DA FÉ ★
-            </a>
-            <a
-              href="/o-que-conhecer"
-              className="border-4 border-white text-white px-10 py-4 rounded-2xl font-black text-sm tracking-widest hover:bg-white hover:text-[#0044CA] transition-all text-center"
-            >
-              VER TODOS OS DESTINOS
-            </a>
-          </div>
         </div>
       </section>
 

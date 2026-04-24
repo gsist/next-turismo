@@ -74,7 +74,10 @@ interface NavItem {
 const navigation: NavItem[] = [
   { name: "História", href: "/historia" },
   { name: "O que fazer?", href: "/o-que-conhecer" },
-  { name: "Roteiros", href: "/roteiros" },
+  { name: "Hospedagem", href: "/hospedagem" },
+  { name: "Gastronomia", href: "/gastronomia" },
+  { name: "Calendario de Eventos", href: "/calendario" },
+  { name: "Turismo Rural", href: "/turismo-rural" },
   { name: "Contato", href: "/#contato" },
 ];
 

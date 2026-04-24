@@ -111,83 +111,9 @@ export default function HeroSection() {
                 EXPLORAR AGORA
               </button>
 
-              <button className="
-                border-4 text-white font-black rounded-2xl shadow-xl transition-all
-                border-white hover:bg-white hover:text-[#0044CA]
-                lg:bg-white/80 lg:backdrop-blur-sm lg:border-[#0044CA] lg:text-[#0044CA]
-                lg:hover:bg-[#0044CA] lg:hover:text-white
-                px-10 py-4 sm:px-12 sm:py-5
-                text-lg sm:text-xl
-              ">
-                GALERIA
-              </button>
             </div>
           </div>
 
-          {/* ── COLUNA DIREITA: CARDS ── */}
-          <div className="lg:col-span-5 flex flex-col gap-5 w-full max-w-md mx-auto lg:mx-0">
-
-            <div className="flex items-center gap-3 mb-1 justify-center lg:justify-end lg:mt-32">
-              <span className="h-0.5 w-8 bg-white/50 rounded-full" />
-              <span className="text-white font-black text-[10px] uppercase tracking-[0.35em]">Roteiros Oficiais</span>
-            </div>
-
-            <div className="space-y-4 sm:space-y-5">
-              {ROTEIROS.map((r) => (
-                <div
-                  key={r.label}
-                  className="
-                    group bg-white/95 hover:bg-[#F9BC00]
-                    p-4 sm:p-6 rounded-4xl
-                    shadow-2xl transition-all duration-300
-                    flex items-center gap-4 sm:gap-6
-                    cursor-pointer border-b-10 border-[#00751D]
-                    hover:-translate-y-1
-                  "
-                >
-                  <div className="
-                    w-12 h-12 sm:w-16 sm:h-16
-                    bg-slate-50 rounded-2xl shrink-0 shadow-sm
-                    flex items-center justify-center
-                    text-3xl sm:text-4xl
-                    group-hover:bg-white
-                  ">
-                    {r.emoji}
-                  </div>
-                  <div className="flex flex-col text-left min-w-0">
-                    <span className="text-[10px] sm:text-xs font-black text-[#00751D] uppercase tracking-tighter opacity-80">
-                      Experiência
-                    </span>
-                    <span className="text-sm sm:text-lg lg:text-xl font-black text-[#0044CA] leading-tight truncate">
-                      {r.label}
-                    </span>
-                  </div>
-                  <div className="ml-auto text-[#0044CA] shrink-0 transform group-hover:scale-125 transition-transform">
-                    <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="4" viewBox="0 0 24 24">
-                      <path d="M9 5l7 7-7 7" />
-                    </svg>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Badge Histórico */}
-            <div className="
-              mt-2 sm:mt-4 p-6 sm:p-8
-              bg-[#0044CA] text-white rounded-4xl
-              flex items-center gap-4 sm:gap-6
-              border-4 border-[#F9BC00] shadow-2xl
-              lg:translate-x-6
-            ">
-              <div className="bg-[#F9BC00] p-3 rounded-2xl text-3xl sm:text-4xl shadow-inner shrink-0">🏛️</div>
-              <div className="text-left">
-                <p className="text-[#F9BC00] font-black text-3xl sm:text-4xl leading-none tracking-tighter">1654</p>
-                <p className="font-bold text-[10px] sm:text-xs uppercase tracking-widest text-white/90 mt-1">
-                  Berço da Pátria Brasileira
-                </p>
-              </div>
-            </div>
-          </div>
 
         </div>
       </div>

@@ -6,7 +6,7 @@ const contact = [
   {
     icon: "📞",
     label: "Telefone",
-    value: "(81) 99821-0398",
+    value: "(81)99827-0398",
   },
   {
     icon: "📍",
@@ -56,13 +56,10 @@ export default function ContactSection() {
             </div>
             
             <h2 className="text-5xl lg:text-8xl font-black text-[#0044CA] leading-[0.85] tracking-tighter uppercase italic mb-8">
-              PREPARE SUA <br />
-              <span className="text-[#F9BC00] drop-shadow-[4px_4px_0px_#00751D]">VIAGEM</span>
+              TIRE SUAS <br />
+              <span className="text-[#F9BC00] drop-shadow-[4px_4px_0px_#00751D]">DÚVIDAS</span>
             </h2>
 
-            <p className="text-lg lg:text-xl font-bold text-slate-600 mb-10 max-w-md mx-auto lg:mx-0 leading-tight">
-              Dúvidas sobre roteiros, pontos históricos ou eventos? Nossa equipe de turismo está pronta para te ajudar.
-            </p>
 
             <a
               href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
@@ -113,15 +110,6 @@ export default function ContactSection() {
               </div>
             ))}
 
-            {/* CARD EXTRA: SOCIAL/INSTA */}
-            <div className="mt-4 p-8 bg-[#0044CA] rounded-[2.5rem] text-white flex justify-between items-center overflow-hidden relative">
-               <div className="relative z-10">
-                 <a href={`https://www.instagram.com/turismoruraljaboatao`} className="font-black italic uppercase tracking-tighter text-2xl">Siga o Turismo De Jaboatão</a>
-                 <br />
-                 <a href={`https://www.instagram.com/turismoruraljaboatao`} className="text-[#F9BC00] font-bold text-sm">@turismoruraljaboatao</a>
-               </div>
-               <div className="text-6xl opacity-20 -rotate-12">📸</div>
-            </div>
           </div>
 
         </div>
