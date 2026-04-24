@@ -15,12 +15,12 @@ const CATEGORIAS = [
     descricao:
       'A Orla de Jaboatão é repleta de atrações. De piscinas naturais a pôr do sol inesquecíveis, o município reúne praias, rios e manguezais para todos os perfis.',
     destaques: [
-      { emoji: '🪸', nome: 'Piscinas Naturais de Candeias', desc: 'Formações de recife que criam piscinas de água cristalina no calçadão.' },
-      { emoji: '🗿', nome: 'Monumento Gaivota Karina', desc: 'Ícone da Praia de Piedade, símbolo da orla jaboatonense.' },
-      { emoji: '⛵', nome: 'Estátua de Iemanjá', desc: 'Em Barra de Jangada, onde o Rio Jaboatão encontra o mar.' },
-      { emoji: '🏄', nome: 'Esportes Aquáticos', desc: 'Stand up paddle, kitesurf, windsurf, kayak e passeio de jangada.' },
-      { emoji: '🐢', nome: 'Desova de Tartarugas', desc: 'Pontos de desova monitorados ao longo das praias.' },
-      { emoji: '🚤', nome: 'Passeio de Barco', desc: 'Rio Jaboatão e Rio Pirapama com manguezal e marisqueiras.' },
+      { emoji: '🏖️', nome: 'Praia de Barra de Jangada', desc: 'Praia com atmosfera tranquila e tradicional, onde o Rio Jaboatão encontra o mar.' },
+      { emoji: '🏖️', nome: 'Praia de Candeias', desc: 'Praia urbana com infraestrutura, piscinas naturais e formações de recife de água cristalina.' },
+      { emoji: '🏖️', nome: 'Praia de Piedade', desc: 'Praia com águas claras, coqueirais e vista para o Monumento Gaivota Karina.' },
+      { emoji: '🗿', nome: 'Monumento Gaivota Karina', desc: 'Ícone da Praia de Piedade, símbolo marcante da orla jaboatonense.' },
+      { emoji: '🕉️', nome: 'Estátua de Iemanjá', desc: 'Em Barra de Jangada, ponto de encontro entre o rio e o mar.' },
+      { emoji: '🏄', nome: 'Esportes Aquáticos', desc: 'Stand up paddle, kitesurf, windsurf, kayak e passeios de jangada.' },
     ],
     tag: 'LITORAL',
   },
@@ -31,58 +31,78 @@ const CATEGORIAS = [
     cor: '#F9BC00',
     corTexto: '#0044CA',
     titulo: 'HISTÓRIA\n& CULTURA',
-    subtitulo: 'Onde a história encontra a preservação',
+    subtitulo: 'Berço da Pátria',
     descricao:
-      'Berço da Pátria Brasileira. Foi no Monte dos Guararapes que nasceu o sentimento de nação — palco das históricas Batalhas de 1648 e 1654.',
+      'Jaboatão dos Guararapes é Berço da Pátria Brasileira. Foi no Monte dos Guararapes que nasceu o sentimento de nação — palco das históricas Batalhas de 1648 e 1654. Igrejas históricas, miradouros, museus e esculturas revelam 370 anos de história.',
     destaques: [
-      { emoji: '⚔️', nome: 'Monte dos Guararapes', desc: 'Palco das Batalhas que expulsaram os holandeses e forjaram a identidade nacional.' },
-      { emoji: '👁️', nome: 'Mirante Henrique Dias', desc: 'Exposição e monumentos que contam a origem do sentimento nacional brasileiro.' },
-      { emoji: '⛪', nome: 'Santuário de Nossa Senhora dos Prazeres', desc: 'Um dos templos com maior número de azulejos portugueses do Brasil.' },
-      { emoji: '🐟', nome: 'Espaço Vida Marinha', desc: 'Dedicado à preservação ambiental na Praia de Piedade.' },
-      { emoji: '⛵', nome: 'Igrejinha de Piedade', desc: 'Marco histórico e arquitetônico da orla.' },
-      { emoji: '📜', nome: 'Berço da Pátria — 1654', desc: 'Jaboatão reconhecida como local onde nasceu o sentimento de nação.' },
+      { emoji: '⚔️', nome: 'Parque Histórico Nacional Monte dos Guararapes', desc: 'Palco das Batalhas que forjaram a identidade nacional brasileira.' },
+      { emoji: '👁️', nome: 'Mirante Henrique Dias', desc: 'Exposição e monumentos que contam a origem do sentimento nacional.' },
+      { emoji: '👁️', nome: 'Mirante André Vidal de Negreiros', desc: 'Belvedere no Monte dos Guararapes com vista panorâmica da região.' },
+      { emoji: '⛪', nome: 'Santuário N. Sra. dos Prazeres', desc: 'Um dos maiores templos com azulejos portugueses do Brasil, no Monte dos Guararapes.' },
+      { emoji: '🎭', nome: 'Espaço Vida Marinha', desc: 'Espaço de educação ambiental dedicado à preservação marinha em Piedade.' },
+      { emoji: '📜', nome: 'Instituto Histórico de Jaboatão', desc: 'Acervo histórico preservando a memória e identidade da cidade.' },
     ],
     tag: 'HISTÓRIA',
   },
   {
-    id: 'gastronomia',
-    emoji: '🍽️',
-    label: 'Gastronomia',
+    id: 'igrejas',
+    emoji: '⛪',
+    label: 'Igrejas & Templos',
     cor: '#00751D',
     corTexto: '#fff',
-    titulo: 'GASTRO\nNOMIA',
-    subtitulo: 'Nossas delícias não têm igual!',
+    titulo: 'IGREJAS &\nTEMPLOS',
+    subtitulo: 'Fé e patrimônio',
     descricao:
-      'A culinária jaboatonense é um convite aos sentidos. Frutos do mar frescos predominam nos bares e restaurantes da orla e às margens do Rio Jaboatão.',
+      'Jaboatão possui um rico acervo de igrejas e capelas, muitas com arquitetura colonial e décadas de história. Espaços de devoção e patrimônio cultural.',
     destaques: [
-      { emoji: '🎂', nome: 'Bolo Souza Leão', desc: 'Patrimônio da gastronomia pernambucana — receita de uma das famílias mais antigas da cidade.' },
-      { emoji: '🦐', nome: 'Frutos do Mar', desc: 'Bares e restaurantes da orla servem o melhor do frescor do Atlântico.' },
-      { emoji: '🌊', nome: 'Orla Gastronômica', desc: 'Dezenas de bares e restaurantes à beira-mar e às margens do Rio Jaboatão.' },
-      { emoji: '🌿', nome: 'Comida Caseira Rural', desc: 'No Engenho Penanduba: pratos típicos com macaxeira, cará e farinha de casa.' },
-      { emoji: '🐟', nome: 'Pesque-pague', desc: 'Experiência completa de pesca e culinária no Aconchego Família Rural.' },
-      { emoji: '🍳', nome: 'Casa de Farinha', desc: 'Tradição viva da cultura rural nordestina no Engenho Penanduba.' },
+      { emoji: '⛪', nome: 'Matriz de Santo Amaro', desc: 'Centro paroquial histórico na Rua Santo Amaro, Centro.' },
+      { emoji: '⛪', nome: 'Igreja de N. Sra. da Piedade', desc: 'Igrejinha histórica na Avenida Beira Mar, Piedade.' },
+      { emoji: '⛪', nome: 'Paróquia N. Sra. do Rosário - Centro', desc: 'Igreja matriz no coração da cidade.' },
+      { emoji: '⛪', nome: 'Basílica de N. Sra. Auxiliadora', desc: 'Primeira Basílica em zona rural do mundo, na Colônia Salesiana, Vila Rica.' },
+      { emoji: '⛪', nome: 'Paróquia N. Sra. do Rosário - Prazeres', desc: 'Templo religioso em Prazeres com rica história.' },
+      { emoji: '⛪', nome: 'Paróquia N. Sra. das Candeias', desc: 'Igreja em Candeias, importante centro de devoção.' },
     ],
-    tag: 'SABORES',
+    tag: 'RELIGIÃO',
   },
   {
     id: 'artesanato',
     emoji: '🎨',
-    label: 'Artesanato',
+    label: 'Artesanato & Ateliês',
     cor: '#0044CA',
     corTexto: '#fff',
     titulo: 'ARTE\nSANATO',
     subtitulo: 'De Jaboatão para o mundo',
     descricao:
-      'O artesanato jaboatonense é destaque nacional e internacional. Artistas da cidade levam a alma criativa da gente pernambucana para além das fronteiras.',
+      'O artesanato jaboatonense é destaque nacional e internacional. Ateliês criativos abrigam mestres escultores, artesãos e artistas plásticos que levam a alma pernambucana para além das fronteiras.',
     destaques: [
-      { emoji: '🗿', nome: 'Mestre Nicola', desc: 'Escultor renomado cujas obras são referência do artesanato local.' },
-      { emoji: '🪡', nome: 'Iara Tenório', desc: 'Artesã de destaque nacional com trabalhos únicos.' },
-      { emoji: '🎭', nome: 'Maraçane de França', desc: 'Expressão da identidade cultural e criativa de Jaboatão.' },
-      { emoji: '🪘', nome: 'Mestre Saúba', desc: 'Artesão que preserva a tradição viva da cultura popular.' },
-      { emoji: '✨', nome: 'Alex Mont\'Elberto', desc: 'Artista que leva Jaboatão para além das fronteiras nacionais.' },
-      { emoji: '🛍️', nome: 'Feiras de Artesanato', desc: 'Espaços de comercialização e valorização dos artesãos locais.' },
+      { emoji: '🗿', nome: 'Ateliê Nicola', desc: 'Avenida Comercial, 8383, Candeias. Esculturas e arte. Tel: (81) 3469-0421' },
+      { emoji: '🎨', nome: 'Ateliê Alex Mont\'Elberto', desc: 'Rua Médico Vicente Fonseca, 941, Candeias. Tel: (81) 3474-3996' },
+      { emoji: '🪡', nome: 'Ateliê Iara Tenório', desc: 'Rua Antônio de Farias, 580. Artes diversas. Tel: (81) 98757-6467' },
+      { emoji: '🪘', nome: 'Ateliê Mestre Saúba', desc: 'Rua João Martins, 16, Vila Rica. Tel: (81) 3482-7383' },
+      { emoji: '🎭', nome: 'Ateliê Domingos e Patrícia Barros', desc: 'Rua Igarassu, 1964. Design e criatividade. Tel: (81) 3361-1965' },
+      { emoji: '✨', nome: 'Oficina de Formas', desc: 'Rua Consuelo Leandro Dutra, 215. Arte criativa.' },
     ],
     tag: 'ARTE',
+  },
+  {
+    id: 'compras',
+    emoji: '🛍️',
+    label: 'Compras & Mercados',
+    cor: '#00751D',
+    corTexto: '#fff',
+    titulo: 'COMPRAS &\nMERCADOS',
+    subtitulo: 'Tudo que você precisa',
+    descricao:
+      'De galerias comerciais a shopping centers, Jaboatão oferece diversas opções de compras. Encontre artesanato, moda, farmácias e tudo mais no melhor da cidade.',
+    destaques: [
+      { emoji: '🏬', nome: 'Shopping Guararapes Open Mall', desc: 'Avenida Bernardo Vieira de Melo, 209. Tel: (81) 3093-1809' },
+      { emoji: '🏬', nome: 'The Garden Open Mall', desc: 'Avenida Barreto Menezes, 800. Tel: (81) 2122-2211' },
+      { emoji: '🏪', nome: 'Casa Rosário Colab', desc: 'Galeria colaborativa na Rua Santo Amaro, 97. Artesanato local.' },
+      { emoji: '🏪', nome: 'Shopping Yapoatan Center', desc: 'Rua Bernardo Vieira de Melo, 14. Compras variadas.' },
+      { emoji: '💊', nome: 'Drogaria São Paulo', desc: 'Rua Dr. Aniceto Varejão, 4455. Tel: (81) 3096-0751' },
+      { emoji: '💊', nome: 'Pague Menos', desc: 'Rua Dr. Aniceto Varejão, 100. Tel: (81) 4002-8282' },
+    ],
+    tag: 'COMPRAS',
   },
   {
     id: 'festividades',
@@ -93,36 +113,36 @@ const CATEGORIAS = [
     titulo: 'FESTIVI\nDADES',
     subtitulo: 'É festa o ano inteiro',
     descricao:
-      'Jaboatão celebra o ano todo com festividades religiosas, culturais e populares que animam moradores e visitantes com muita música e hospitalidade.',
+      'Jaboatão celebra o ano todo com festividades religiosas, culturais e populares. Santo Amaro, N. Sra. dos Prazeres, Carnaval e São João animam a cidade com muita música, fé e hospitalidade nordestina.',
     destaques: [
-      { emoji: '⛪', nome: 'Festa de N. Sra. dos Prazeres', desc: 'Uma das maiores celebrações religiosas e culturais de Pernambuco, no Monte dos Guararapes.' },
-      { emoji: '🌺', nome: 'Festa da Pitomba', desc: 'Celebração tradicional que reúne cultura e devoção popular.' },
-      { emoji: '✝️', nome: 'Festa de Santo Amaro', desc: 'Homenagem ao padroeiro da cidade com muita fé e alegria.' },
-      { emoji: '🥁', nome: 'Carnaval', desc: 'Folia pernambucana com frevo, maracatu e toda a energia do Nordeste.' },
-      { emoji: '⭐', nome: 'São João', desc: 'Quadrilhas, forró e comidas típicas animam junho em Jaboatão.' },
-      { emoji: '🎆', nome: 'Réveillon Pé na Areia', desc: 'Virada do ano na praia com shows e fogos inesquecíveis.' },
+      { emoji: '⛪', nome: 'Festa de Santo Amaro', desc: 'Rua Santo Amaro, Centro. Celebração do padroeiro da cidade com muita fé e alegria.' },
+      { emoji: '⛪', nome: 'Festa de N. Sra. dos Prazeres', desc: 'Uma das maiores celebrações religiosas de Pernambuco, no Monte dos Guararapes.' },
+      { emoji: '🌺', nome: 'Festa de Iemanjá', desc: 'Celebração das tradições afro-brasileiras em Barra de Jangada.' },
+      { emoji: '✝️', nome: 'Festa de N. Sra. da Piedade', desc: 'Devoção e tradição na histórica praia de Piedade.' },
+      { emoji: '🥁', nome: 'Carnaval de Jaboatão', desc: 'Frevo, maracatu e toda a energia da folia pernambucana.' },
+      { emoji: '⭐', nome: 'São João em Jaboatão', desc: 'Quadrilhas, forró e comidas típicas animam junho inteiro.' },
     ],
     tag: 'FESTAS',
   },
   {
-    id: 'turismo-rural',
+    id: 'atrativos-naturais',
     emoji: '🌿',
-    label: 'Turismo Rural',
+    label: 'Atrativos Naturais',
     cor: '#00751D',
     corTexto: '#fff',
-    titulo: 'TURISMO\nRURAL',
-    subtitulo: 'Fortalecendo as nossas raízes',
+    titulo: 'ATRATIVOS\nNATURAIS',
+    subtitulo: 'Riqueza ambiental',
     descricao:
-      'Em meio a engenhos, trilhas e tradições, Jaboatão revela experiências autênticas que celebram a natureza, a cultura e a história local.',
+      'Jaboatão preserva belezas naturais: parques, lagoas e manguezais. O Parque Histórico Nacional Monte dos Guararapes é patrimônio da humanidade e refúgio da biodiversidade nordestina.',
     destaques: [
-      { emoji: '🐟', nome: 'Sítio Recanto da Tilápia', desc: 'Cultivo de macaxeira e cará, pratos típicos e memorial da história agrícola local.' },
-      { emoji: '🌿', nome: 'Chácara Xamânica', desc: 'Imersão cultural e espiritual com rituais xamânicos e cultivo de ervas medicinais.' },
-      { emoji: '🏡', nome: 'Aconchego Família Rural', desc: 'No Engenho Penanduba: pesque-pague, comida caseira e casa de farinha.' },
-      { emoji: '🎋', nome: 'Engenho Macujé', desc: 'Tradição açucareira e cotidiano do campo com trilhas e vivências da cana-de-açúcar.' },
-      { emoji: '⛪', nome: 'Colônia Salesiana', desc: 'Basílica de N. Sra. Auxiliadora — a primeira do mundo em zona rural —, em Vila Rica.' },
-      { emoji: '📞', nome: 'Informações Turísticas', desc: 'Central de Turismo Rural: (81) 99827-0398 | @turismoruraljaboatao' },
+      { emoji: '🏞️', nome: 'Parque Histórico Nacional Monte dos Guararapes', desc: 'Patrimônio natural e histórico com trilhas e vistas panorâmicas.' },
+      { emoji: '💧', nome: 'Lagoa Olho D\'Água (Lagoa do Náutico)', desc: 'Rua Lagoa do Náutico, Barra de Jangada. Espelho d\'água com beleza cênica.' },
+      { emoji: '💧', nome: 'Barragem Duas Unas', desc: 'Obra de engenharia que fornece água à região e beleza paisagística.' },
+      { emoji: '🌳', nome: 'Parque da Cidade', desc: 'Estrada da Batalha, 2026, Prazeres. Área verde com recreação.' },
+      { emoji: '🌳', nome: 'Parque Jefferson de Freitas', desc: 'Rua Estrada da Luz, Santo Aleixo. Espaço para lazer e natureza.' },
+      { emoji: '🌿', nome: 'Rio Jaboatão e Manguezais', desc: 'Ecossistema rico em biodiversidade, palco de passeios de barco.' },
     ],
-    tag: 'RURAL',
+    tag: 'NATURA',
   },
 ];
 
@@ -177,13 +197,13 @@ export default function OQueConhecerSection() {
 
       {/* ── ABAS DE NAVEGAÇÃO ── */}
       <div className="relative z-20 max-w-7xl mx-auto w-full px-5 sm:px-8 mt-8 sm:mt-10 lg:mt-12">
-        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide snap-x">
+        <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
           {CATEGORIAS.map((cat) => (
             <button
               key={cat.id}
               onClick={() => setAtivo(cat.id)}
               className={`
-                snap-start shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-2xl
+                flex items-center gap-2 px-4 py-2.5 rounded-2xl
                 font-black text-[10px] sm:text-xs uppercase tracking-widest
                 transition-all duration-300 border-2
                 ${ativo === cat.id
