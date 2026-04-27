@@ -69,16 +69,25 @@ const institutionalLinks = [
 interface NavItem {
   name: string;
   href: string;
+  submenu?: NavItem[];
 }
 
 const navigation: NavItem[] = [
-  { name: "História", href: "/historia" },
+  {
+    name: "Histórias",
+    href: "#",
+    submenu: [
+      { name: "História do município", href: "/historia" },
+      { name: "Batalha dos guararapes", href: "/historia" },
+    ],
+  },
   { name: "O que fazer?", href: "/o-que-conhecer" },
   { name: "Hospedagem", href: "/hospedagem" },
   { name: "Gastronomia", href: "/gastronomia" },
   { name: "Calendario de Eventos", href: "/calendario" },
   { name: "Turismo Rural", href: "/turismo-rural" },
   { name: "Contato", href: "/#contato" },
+
 ];
 
 const TopMenu = () => (
@@ -121,18 +130,62 @@ const TopMenu = () => (
 
 const DesktopMenu = () => {
   const pathname = usePathname();
+  const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
 
   return (
     <nav className="hidden xl:flex flex-row gap-4 xl:gap-6 text-xs sm:text-sm xl:text-base font-semibold uppercase text-center">
       {navigation.map((item) => {
-        const isActive = pathname === item.href;
+        const hasSubmenu = item.submenu && item.submenu.length > 0;
+        const isActive = !hasSubmenu && pathname === item.href;
+
+        if (hasSubmenu) {
+          return (
+            <div 
+              key={item.name}
+              className="relative"
+              onMouseEnter={() => setOpenSubmenu(item.name)}
+              onMouseLeave={() => setOpenSubmenu(null)}
+            >
+              <Link
+                href={item.href}
+                className={`
+                  relative p-2 rounded transition-all duration-300 inline-block font-semibold
+                  ${openSubmenu === item.name 
+                    ? "bg-[#0037C1] text-white" 
+                    : "text-[#0037C1] hover:text-white hover:bg-[#0037C1]"
+                  }
+                `}
+              >
+                {item.name} ▼
+              </Link>
+              
+              {openSubmenu === item.name && (
+                <div 
+                  className="absolute top-full left-0 bg-[#0037C1] shadow-lg w-56 border border-slate-300 z-50 flex flex-col rounded-md overflow-hidden"
+                  onMouseEnter={() => setOpenSubmenu(item.name)}
+                  onMouseLeave={() => setOpenSubmenu(null)}
+                >
+                  {item.submenu!.map((subItem) => (
+                    <Link
+                      key={subItem.href}
+                      href={subItem.href}
+                      className="px-4 py-1.5 text-base flex items-start hover:bg-[#fdfdfd] hover:text-[#0037C1] text-white font-normal transition-colors text-left"
+                    >
+                      {subItem.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        }
 
         return (
           <div key={item.href}>
             <Link
               href={item.href}
               className={`
-                relative p-2 rounded transition-all duration-300 inline-block
+                relative p-2 rounded transition-all duration-300 inline-block font-semibold
                 ${isActive 
                   ? "bg-[#0037C1] text-white" 
                   : "text-[#0037C1] hover:text-white hover:bg-[#0037C1]"
@@ -171,6 +224,7 @@ interface MobileMenuProps {
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ closeMenu, isMenuOpen }) => {
   const [isClosing, setIsClosing] = useState(false);
+  const [openMobileSubmenu, setOpenMobileSubmenu] = useState<string | null>(null);
 
   const handleClose = () => {
     setIsClosing(true);
@@ -218,19 +272,51 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ closeMenu, isMenuOpen }) => {
               Minha Carteira
             </a>
 
-            {navigation.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={handleClose}
-                className="text-[#0037C1] font-semibold text-lg hover:underline"
-              >
-                {item.name}
-              </Link>
-            ))}
+            {navigation.map((item) => {
+              const hasSubmenu = item.submenu && item.submenu.length > 0;
+
+              if (hasSubmenu) {
+                return (
+                  <div key={item.name} className="w-full text-center">
+                    <button
+                      onClick={() => setOpenMobileSubmenu(openMobileSubmenu === item.name ? null : item.name)}
+                      className="text-[#0037C1] font-semibold text-lg hover:underline inline-flex items-center gap-2"
+                    >
+                      {item.name} <span className="text-sm">{openMobileSubmenu === item.name ? "▲" : "▼"}</span>
+                    </button>
+
+                    {openMobileSubmenu === item.name && (
+                      <div className="flex flex-col items-center gap-2 mt-2">
+                        {item.submenu!.map((subItem) => (
+                          <Link
+                            key={subItem.href}
+                            href={subItem.href}
+                            onClick={handleClose}
+                            className="text-[#0037C1] font-semibold text-base hover:underline"
+                          >
+                            {subItem.name}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={handleClose}
+                  className="text-[#0037C1] font-semibold text-lg hover:underline"
+                >
+                  {item.name}
+                </Link>
+              );
+            })}
 
             <div className="w-full border-t border-gray-300 my-4"></div>
-            
+
             {institutionalLinks.map((link) => (
               <a
                 key={link.href}
