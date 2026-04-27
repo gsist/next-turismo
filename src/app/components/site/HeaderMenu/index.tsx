@@ -130,13 +130,23 @@ const TopMenu = () => (
 
 const DesktopMenu = () => {
   const pathname = usePathname();
-  const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
+
+  const getActiveSubmenu = () => {
+    for (const item of navigation) {
+      if (item.submenu && item.submenu.some(sub => pathname === sub.href)) {
+        return item.name;
+      }
+    }
+    return null;
+  };
+
+  const [openSubmenu, setOpenSubmenu] = useState<string | null>(getActiveSubmenu());
 
   return (
     <nav className="hidden xl:flex flex-row gap-4 xl:gap-6 text-xs sm:text-sm xl:text-base font-semibold uppercase text-center">
       {navigation.map((item) => {
         const hasSubmenu = item.submenu && item.submenu.length > 0;
-        const isActive = !hasSubmenu && pathname === item.href;
+        const isActive = hasSubmenu ? item.submenu!.some(sub => pathname === sub.href) : pathname === item.href;
 
         if (hasSubmenu) {
           return (
@@ -150,7 +160,7 @@ const DesktopMenu = () => {
                 href={item.href}
                 className={`
                   relative p-2 rounded transition-all duration-300 inline-block font-semibold
-                  ${openSubmenu === item.name 
+                  ${isActive || openSubmenu === item.name 
                     ? "bg-[#0037C1] text-white" 
                     : "text-[#0037C1] hover:text-white hover:bg-[#0037C1]"
                   }
@@ -165,15 +175,18 @@ const DesktopMenu = () => {
                   onMouseEnter={() => setOpenSubmenu(item.name)}
                   onMouseLeave={() => setOpenSubmenu(null)}
                 >
-                  {item.submenu!.map((subItem) => (
-                    <Link
-                      key={subItem.href}
-                      href={subItem.href}
-                      className="px-4 py-1.5 text-base flex items-start hover:bg-[#fdfdfd] hover:text-[#0037C1] text-white font-normal transition-colors text-left"
-                    >
-                      {subItem.name}
-                    </Link>
-                  ))}
+                  {item.submenu!.map((subItem) => {
+                    const isSubActive = pathname === subItem.href;
+                    return (
+                      <Link
+                        key={subItem.href}
+                        href={subItem.href}
+                        className={`px-4 py-1.5 text-base flex items-start hover:bg-[#fdfdfd] hover:text-[#0037C1] ${isSubActive ? 'bg-[#fdfdfd] text-[#0037C1]' : 'text-white'} font-normal transition-colors text-left`}
+                      >
+                        {subItem.name}
+                      </Link>
+                    );
+                  })}
                 </div>
               )}
             </div>
@@ -264,13 +277,13 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ closeMenu, isMenuOpen }) => {
 
         <div className="flex-1 overflow-auto p-4">
           <div className="flex flex-col items-center gap-4 pt-10">
-            <a
+            <Link
               href="/login-cidadao"
               onClick={handleClose}
               className="flex items-center justify-center bg-[#0037C1] text-white font-semibold text-lg px-8 py-2 rounded-full border-2 border-white hover:bg-[#1300a8] transition duration-300"
             >
               Minha Carteira
-            </a>
+            </Link>
 
             {navigation.map((item) => {
               const hasSubmenu = item.submenu && item.submenu.length > 0;
