@@ -77,8 +77,8 @@ const navigation: NavItem[] = [
     name: "Histórias",
     href: "#",
     submenu: [
-      { name: "História do município", href: "/historia" },
-      { name: "Batalha dos guararapes", href: "/historia" },
+      { name: "História do município", href: "/historia-municipio" },
+      { name: "Batalha dos guararapes", href: "/historia-batalha" },
     ],
   },
   { name: "O que fazer?", href: "/o-que-conhecer" },
