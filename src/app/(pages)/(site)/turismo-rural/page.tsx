@@ -1,5 +1,5 @@
-import Gastronomia from '@/app/components/site/gastronomia';
+import TurismoRural from '@/app/components/site/turismorural';
 
-export default function GastronomiaPage() {
-  return <Gastronomia />;
+export default function TurismoRuralPage() {
+  return <TurismoRural />;
 }
