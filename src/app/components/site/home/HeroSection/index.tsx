@@ -1,20 +1,7 @@
 // src/app/components/site/home/HeroSection/index.tsx
 'use client';
 
-import React from 'react';
 
-const ROTEIROS = [
-  { href: '/roteiros/jaboatao-em-um-dia', emoji: '☀️', label: 'Jaboatão em um Dia' },
-  { href: '/roteiros/fim-de-semana', emoji: '🌊', label: 'Fim de Semana' },
-  { href: '/roteiros/passeio-da-fe', emoji: '⛪', label: 'Passeio da Fé' },
-];
-
-const handleClick = () => {
-  const element = document.getElementById('roteiros');
-  if (element) {
-    element.scrollIntoView({ behavior: 'smooth' });
-  }
-};
 
 const STRIP = ['Praias', 'História & Cultura', 'Gastronomia', 'Artesanato', 'Festas', 'Turismo Rural'];
 
@@ -97,21 +84,6 @@ export default function HeroSection() {
               </p>
             </div>
 
-            <div className="mt-8 lg:mt-12 flex flex-col sm:flex-row gap-4 sm:gap-6 w-full sm:w-auto">
-              <button
-                onClick={handleClick}
-                className="
-      bg-[#F9BC00] text-[#0044CA]
-      px-10 py-4 sm:px-12 sm:py-5
-      text-lg sm:text-xl font-black rounded-2xl
-      transition-all hover:scale-105 active:scale-95
-      shadow-[8px_8px_0px_#00751D]
-    "
-              >
-                EXPLORAR AGORA
-              </button>
-
-            </div>
           </div>
 
 
