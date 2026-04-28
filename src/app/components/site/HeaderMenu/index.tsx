@@ -73,18 +73,12 @@ interface NavItem {
 }
 
 const navigation: NavItem[] = [
-  {
-    name: "Histórias",
-    href: "#",
-    submenu: [
-      { name: "História do município", href: "/historia-municipio" },
-      { name: "Batalha dos guararapes", href: "/historia-batalha" },
-    ],
-  },
+  { name: "História", href: "/historia-municipio" },
+  { name: "Monte Dos Guararapes", href: "/historia-batalha" },
   { name: "O que fazer?", href: "/o-que-conhecer" },
   { name: "Hospedagem", href: "/hospedagem" },
   { name: "Gastronomia", href: "/gastronomia" },
-  { name: "Calendario de Eventos", href: "/calendario" },
+  { name: "Calendario", href: "/calendario" },
   { name: "Turismo Rural", href: "/turismo-rural" },
   { name: "Contato", href: "/#contato" },
 

@@ -7,7 +7,7 @@ import { FaCalendarAlt, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 interface Event {
   id: string;
   name: string;
-  date: string; // YYYY-MM-DD
+  date: string;  
 }
 
 const mockEvents: Event[] = [
@@ -62,7 +62,7 @@ const Calendario: React.FC = () => {
         transition={{ duration: 0.5 }}
       >
         <FaCalendarAlt className="text-blue-500" />
-        Calendário de Eventos {currentYear}
+        Calendário de {currentYear}
       </motion.h2>
       <div className="flex justify-center items-center gap-4 mb-8">
         <motion.button
