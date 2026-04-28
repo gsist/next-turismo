@@ -1,250 +1,579 @@
-// src/app/components/site/turismorural/index.tsx
 'use client';
+import { useState, useCallback, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
-import React from 'react';
+const FONT_URL =
+  "https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Oswald:wght@400;500;600;700&family=Montserrat:ital,wght@0,400;0,700;0,800;0,900;1,700&display=swap";
 
-/* ─────────────────────────────────────────────
-   COMPONENTE
-───────────────────────────────────────────── */
+// Interfaces para tipagem
+interface TitleLine {
+  text: string;
+  size: string;
+  weight: number;
+  color: string;
+  font: string;
+  spacing: string;
+  italic?: boolean;
+}
 
-export default function TurismoRuralPage() {
+interface Badge {
+  text: string;
+  bg: string;
+  fg: string;
+}
+
+interface Card {
+  id: string;
+  layout: string;
+  bg: string;
+  titleLines: TitleLine[];
+  subtitle: string;
+  subtitleColor: string;
+  badge: Badge;
+  callout?: string;
+  calloutColor?: string;
+  phone?: string;
+  description: string;
+  details: string;
+  textColor: string;
+  mutedColor: string;
+  divider: string;
+  imagePath: string;
+  imageStyle: string;
+  peekBg: string;
+  peekAccent: string;
+  handle?: string;
+  address?: string;
+  bannerBg?: string;
+}
+
+// ─── identidade visual extraída pixel a pixel do PDF ──────────────────────────
+const cardSets: Card[][] = [
+  [
+    {
+      id: "turismo-rural",
+      // PDF: fundo CREME (#f0dcb4), texto escuro, logo institucional verde+marrom
+      // Título: "TURISMO" pequeno + "RURAL" gigante, verde escuro, Oswald/condensed
+      // Layout: logo no canto superior direito, texto à esquerda, "AGENDE SUA VISITA" bold destaque
+      layout: "logo-right",
+      bg: "#f2e4c4",
+      titleLines: [
+        { text: "TURISMO",   size: "clamp(2.5rem,6vw,5.5rem)",  weight: 700, color: "#1a3d0a", font: "'Oswald', sans-serif", spacing: "0.12em" },
+        { text: "RURAL",     size: "clamp(5rem,13vw,12rem)",     weight: 700, color: "#1a3d0a", font: "'Oswald', sans-serif", spacing: "0.04em" },
+      ],
+      subtitle: "JABOATÃO DOS GUARARAPES",
+      subtitleColor: "#3a6020",
+      badge: { text: "Prefeitura × Sebrae Pernambuco", bg: "#1a3d0a", fg: "#f2e4c4" },
+      callout: "AGENDE SUA VISITA",
+      calloutColor: "#1a3d0a",
+      phone: "81 99806 5939",
+      description: "O Programa Turismo Rural da Prefeitura do Jaboatão dos Guararapes e o Sebrae Pernambuco prepararam um roteiro especial e esperam por você.",
+      details: "Conectando cultura, fé e autenticidade da vida no campo — descubra o passado colonial, saboreie a gastronomia rural e mergulhe nas tradições que fazem dessa região um verdadeiro tesouro turístico.",
+      textColor: "#1c1c0e",
+      mutedColor: "#4a4a30",
+      divider: "#1a3d0a",
+      // Imagem: logo/brasão institucional no canto — use caminho relativo
+      imagePath: "/images/Lugares/bg-hotel.jpg",
+      imageStyle: "cover-right", // imagem cobre metade direita
+      peekBg: "#d8cab0",
+      peekAccent: "#1a3d0a",
+    },
+    {
+      id: "sitio-tilapia",
+      // PDF: fundo VERDE ESCURO (#145014), título branco enorme rotacionado
+      // Foto colorida no topo esquerdo (casinhas coloridas), texto vertical à direita
+      layout: "photo-top-left",
+      bg: "#145014",
+      titleLines: [
+        { text: "SÍTIO RECANTO",  size: "clamp(2.8rem,7vw,6.5rem)",  weight: 900, color: "#ffffff", font: "'Bebas Neue', sans-serif", spacing: "0.05em" },
+        { text: "DA TILÁPIA",     size: "clamp(3.5rem,9.5vw,9rem)",   weight: 900, color: "#ffffff", font: "'Bebas Neue', sans-serif", spacing: "0.02em" },
+      ],
+      subtitle: "UMA IMERSÃO NA CULTURA RURAL",
+      subtitleColor: "#90e070",
+      badge: { text: "UMA IMERSÃO NA CULTURA RURAL", bg: "#90e070", fg: "#0a2a0a" },
+      handle: "@sitio_recanto_da_tilapia",
+      address: "Engenho Penanduíba, 54",
+      description: "No Engenho Penanduíba, o Sítio Recanto da Tilápia é um refúgio de tranquilidade e tradição.",
+      details: "Os visitantes acompanham o plantio e a colheita de macaxeira e cana, provam pratos típicos feitos com ingredientes da terra e visitam um memorial cultural que preserva objetos centenários.",
+      textColor: "#d8f0c8",
+      mutedColor: "#90b878",
+      divider: "#90e070",
+      imagePath: "/images/Lugares/bg-ondeir.jpg",
+      imageStyle: "cover-top-left",
+      peekBg: "#0a2a0a",
+      peekAccent: "#90e070",
+    },
+    {
+      id: "chacara-xamanica",
+      // PDF: AZUL ROYAL (#142850) como fundo dominante + tira verde escuro
+      // Foto à direita (cavalo/pessoa), título branco italic grande
+      layout: "photo-right",
+      bg: "#142850",
+      titleLines: [
+        { text: "CHÁCARA",    size: "clamp(3.5rem,9vw,8.5rem)",  weight: 900, color: "#ffffff", font: "'Montserrat', sans-serif", spacing: "-0.02em", italic: true },
+        { text: "XAMÂNICA",   size: "clamp(2.8rem,7.5vw,7rem)",  weight: 900, color: "#ffffff", font: "'Montserrat', sans-serif", spacing: "-0.01em", italic: true },
+      ],
+      subtitle: "Uma jornada de conexão com origens indígenas",
+      subtitleColor: "#90d8e0",
+      badge: { text: "UMA JORNADA COM CONEXÃO COM ORIGENS INDÍGENAS", bg: "#145028", fg: "#d8f8e0" },
+      handle: "@chacara.xamanica",
+      phone: "81 99888 5773",
+      address: "Engenho Penanduíba, 103",
+      description: "A Chácara Xamânica é um espaço único criado por um descendente indígena para resgatar suas raízes e promover uma vivência cultural e espiritual autêntica.",
+      details: "Localizada em meio à natureza, com rituais xamânicos, cultivo de ervas medicinais e práticas de sustentabilidade.",
+      textColor: "#d0e8f8",
+      mutedColor: "#80a8c8",
+      divider: "#ffffff",
+      imagePath: "/images/Lugares/gastronomia.png",
+      imageStyle: "cover-right",
+      peekBg: "#0a1830",
+      peekAccent: "#90d8e0",
+    },
+  ],
+  [
+    {
+      id: "aconchego-familia",
+      // PDF: fundo BEGE com foto de campo/lago, FAIXA AZUL ESCURO (#142850) sobre a foto com título branco
+      layout: "photo-bg-banner",
+      bg: "#e8d8b0",
+      titleLines: [
+        { text: "ACONCHEGO",       size: "clamp(3rem,7.5vw,7rem)",   weight: 900, color: "#ffffff", font: "'Bebas Neue', sans-serif", spacing: "0.05em" },
+        { text: "FAMÍLIA RURAL",   size: "clamp(2.2rem,5.5vw,5.2rem)", weight: 900, color: "#ffffff", font: "'Bebas Neue', sans-serif", spacing: "0.03em" },
+      ],
+      bannerBg: "#142850",  // faixa azul escura sobre a foto
+      subtitle: "SABORES E TRADIÇÃO DO CAMPO",
+      subtitleColor: "#90d0f8",
+      badge: { text: "SABORES E TRADIÇÃO DO CAMPO", bg: "#90d0f8", fg: "#0a1830" },
+      handle: "@aconchegofamiliarural",
+      phone: "81 99210 4169",
+      address: "Engenho Penanduíba, 103",
+      description: "No Engenho Penanduíba, o Aconchego Família Rural encanta com seu pesque-pague e restaurante de comida caseira, onde o peixe fresco vai do lago direto para a mesa.",
+      details: "A experiência também passa pela casa de farinha, com o aroma do beiju e da tapioca preparados artesanalmente pelas raízes nordestinas.",
+      textColor: "#0a1020",
+      mutedColor: "#304060",
+      divider: "#142850",
+      imagePath: "/images/Lugares/bg-hotel.jpg",
+      imageStyle: "cover-bg",
+      peekBg: "#c0b090",
+      peekAccent: "#142850",
+    },
+    {
+      id: "engenho-macuje",
+      // PDF: foto LARANJA/TERRACOTA (casarão colonial), faixa MARROM ESCURO (#3c1400) com título branco grande
+      layout: "photo-bg-banner",
+      bg: "#3c1400",
+      titleLines: [
+        { text: "ENGENHO",  size: "clamp(3rem,8vw,7.5rem)",   weight: 900, color: "#ffffff", font: "'Bebas Neue', sans-serif", spacing: "0.04em" },
+        { text: "MACUJÉ",   size: "clamp(4rem,10.5vw,9.5rem)", weight: 900, color: "#ffffff", font: "'Bebas Neue', sans-serif", spacing: "-0.01em" },
+      ],
+      bannerBg: "#3c1400",
+      subtitle: "UMA VIAGEM INESQUECÍVEL E ENVOLVENTE NO TEMPO",
+      subtitleColor: "#f0c090",
+      badge: { text: "UMA VIAGEM INESQUECÍVEL NO TEMPO", bg: "#f0c090", fg: "#3c1400" },
+      handle: "@engenhomacuje",
+      address: "Engenho Macujé, S/N",
+      description: "O Engenho Macujé resgata séculos de tradição açucareira, proporcionando uma viagem ao passado colonial de Pernambuco.",
+      details: "Entre trilhas históricas e espaços de memória, os visitantes vivenciam o cotidiano rural e apreciam a fusão entre preservação ambiental e memória cultural.",
+      textColor: "#f8e8d0",
+      mutedColor: "#c09060",
+      divider: "#f0c090",
+      imagePath: "/images/Lugares/bg-ondeir.jpg",
+      imageStyle: "cover-bg",
+      peekBg: "#280e00",
+      peekAccent: "#f0c090",
+    },
+    {
+      id: "colonia-salesiana",
+      // PDF: fundo VERDE MILITAR ESCURO (#283c14), foto de basílica/natureza,
+      // título BRANCO enorme "COLÔNIA SALESIANA"
+      layout: "photo-top-left",
+      bg: "#283c14",
+      titleLines: [
+        { text: "COLÔNIA",    size: "clamp(3rem,8vw,7.5rem)",   weight: 900, color: "#ffffff", font: "'Bebas Neue', sans-serif", spacing: "0.06em" },
+        { text: "SALESIANA",  size: "clamp(2.5rem,6.5vw,6rem)", weight: 900, color: "#ffffff", font: "'Bebas Neue', sans-serif", spacing: "0.04em" },
+      ],
+      subtitle: "FÉ E HISTÓRIA E CONTEMPLAÇÃO",
+      subtitleColor: "#b8e090",
+      badge: { text: "FÉ · HISTÓRIA · CONTEMPLAÇÃO", bg: "#b8e090", fg: "#142808" },
+      handle: "@coloniasalesiana",
+      phone: "81 3368 4218",
+      address: "Rua Cônego dos Padres, 431",
+      description: "No bairro Vila Rica, a Colônia Salesiana de Pernambuco abriga a primeira Basílica construída em zona rural no estado.",
+      details: "Basílica de N. Sra. Auxiliadora, Gruta de Nossa Senhora de Lourdes, réplica da casa de São João Bosco, eventos e retiros — cenário deslumbrante para contemplação.",
+      textColor: "#d8f0c0",
+      mutedColor: "#88b060",
+      divider: "#b8e090",
+      imagePath: "/images/Lugares/gastronomia.png",
+      imageStyle: "cover-top-left",
+      peekBg: "#182408",
+      peekAccent: "#b8e090",
+    },
+  ],
+];
+
+interface HeroStackProps {
+  items: Card[];
+  sectionLabel: string;
+}
+
+interface InfoChipProps {
+  text: string;
+  textColor: string;
+  accent: string;
+  highlight?: boolean;
+}
+
+interface NavBtnProps {
+  label: string;
+  primary: boolean;
+  card: Card;
+  onClick: (e: React.MouseEvent) => void;
+}
+
+const PEEK_H = 36;
+
+// Slide horizontal com sobreposição — o novo card entra por cima vindo da direita
+const slideVariants = {
+  enter: (dir: number) => ({ x: dir > 0 ? "100%" : "-100%", zIndex: 25 }),
+  center: { x: 0, zIndex: 25 },
+  exit: (dir: number) => ({ x: dir > 0 ? "-18%" : "18%", zIndex: 15, scale: 0.97, opacity: 0.7 }),
+};
+
+function HeroStack({ items, sectionLabel }: HeroStackProps) {
+  const [active, setActive] = useState(0);
+  const [dir, setDir] = useState(1);
+
+  const goTo = useCallback((idx: number) => {
+    setDir(idx >= active ? 1 : -1);
+    setActive(idx);
+  }, [active]);
+
+  const goNext = useCallback(() => goTo((active + 1) % items.length), [active, items.length, goTo]);
+  const goPrev = useCallback(() => goTo((active - 1 + items.length) % items.length), [active, items.length, goTo]);
+
+  const card = items[active];
 
   return (
-    <main className="w-full bg-linear-to-br from-[#2D5A3D] via-[#1B4332] to-[#081C15] font-sans overflow-x-hidden min-h-screen">
+    <section style={{ position: "relative", width: "100%", height: "100vh", minHeight: 580, overflow: "hidden" }}>
 
-      {/* ══════════════════════════════════════
-          HERO — Nature Theme
-      ══════════════════════════════════════ */}
-      <section className="relative min-h-screen w-full flex flex-col overflow-hidden">
-
-        {/* Fundo orgânico */}
-        <div className="absolute inset-0 z-0">
+      {/* ── Abas de cards atrás, visíveis no fundo ── */}
+      {items.map((c: Card, i: number) => {
+        const offset = (i - active + items.length) % items.length;
+        if (offset === 0) return null;
+        return (
           <div
-            className="absolute top-0 left-0 w-full h-full opacity-20"
+            key={c.id}
+            onClick={goNext}
             style={{
-              background: 'radial-gradient(circle at 20% 80%, #4ADE80 0%, transparent 50%), radial-gradient(circle at 80% 20%, #22C55E 0%, transparent 50%), radial-gradient(circle at 40% 40%, #16A34A 0%, transparent 50%)',
+              position: "absolute", left: 0, right: 0,
+              top: `calc(100% - ${PEEK_H * offset}px)`, bottom: 0,
+              background: c.peekBg,
+              zIndex: offset === 1 ? 14 : 8,
+              cursor: "pointer",
+              borderTop: `3px solid ${c.peekAccent}`,
+              transition: "top 0.45s cubic-bezier(0.32,0.72,0,1)",
             }}
-          />
-          <div
-            className="absolute bottom-0 right-0 w-[70%] h-[60%] opacity-30"
-            style={{
-              background: 'linear-gradient(135deg, #65A30D 0%, #4D7C0F 50%, #365314 100%)',
-              clipPath: 'polygon(0% 100%, 100% 100%, 100% 0%, 60% 20%, 20% 80%)',
-            }}
-          />
-        </div>
-
-        <div className="relative z-20 flex flex-col items-center justify-center min-h-screen px-5 sm:px-8 py-20">
-
-          {/* Elementos flutuantes */}
-          <div className="absolute top-20 left-10 animate-bounce delay-100">
-            <span className="text-4xl">🌿</span>
-          </div>
-          <div className="absolute top-32 right-16 animate-bounce delay-300">
-            <span className="text-3xl">🌾</span>
-          </div>
-          <div className="absolute bottom-32 left-20 animate-bounce delay-500">
-            <span className="text-5xl">🌳</span>
-          </div>
-          <div className="absolute bottom-20 right-10 animate-bounce delay-700">
-            <span className="text-4xl">🍃</span>
-          </div>
-
-          {/* Conteúdo central */}
-          <div className="text-center max-w-4xl mx-auto">
-
-            <div className="mb-8">
-              <span className="inline-block px-4 py-2 bg-[#F9BC00]/20 backdrop-blur-sm rounded-full border border-[#F9BC00]/30 mb-4">
-                <span className="text-[#F9BC00] font-black text-sm uppercase tracking-widest">Turismo Rural</span>
+          >
+            <div style={{
+              position: "absolute", top: 9, left: 44, right: 44,
+              display: "flex", justifyContent: "space-between", alignItems: "center",
+            }}>
+              <span style={{
+                fontFamily: c.titleLines[0]?.font,
+                fontSize: 11, fontWeight: 700, letterSpacing: "0.22em",
+                textTransform: "uppercase", color: c.peekAccent, opacity: 0.9,
+              }}>
+                {c.titleLines.map((l: TitleLine) => l.text).join(" ")}
+              </span>
+              <span style={{
+                fontFamily: "'Lato', sans-serif",
+                fontSize: 9, letterSpacing: "0.18em",
+                textTransform: "uppercase", color: c.peekAccent, opacity: 0.5,
+              }}>
+                {c.badge.text}
               </span>
             </div>
+          </div>
+        );
+      })}
 
-            <h1 className="text-6xl sm:text-8xl lg:text-9xl font-black text-white leading-[0.8] tracking-tighter uppercase italic mb-8 drop-shadow-2xl">
-              <span className="text-[#F9BC00]">RURAL</span>
-              <br />
-              <span className="text-[#4ADE80]">EXPERIÊNCIAS</span>
-            </h1>
+      {/* ── Card ativo com slide lateral ── */}
+      <AnimatePresence initial={false} custom={dir} mode="popLayout">
+        <motion.div
+          key={card.id}
+          custom={dir}
+          variants={slideVariants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={{ duration: 0.52, ease: [0.32, 0.72, 0, 1] }}
+          drag="x"
+          dragConstraints={{ left: -1, right: 1 }}
+          dragElastic={0.04}
+          onDragEnd={(_: any, info: { offset: { x: number } }) => {
+            if (info.offset.x < -80) goNext();
+            if (info.offset.x > 80) goPrev();
+          }}
+          style={{
+            position: "absolute", inset: 0,
+            background: card.bg,
+            display: "flex", flexDirection: "column",
+            overflow: "hidden", cursor: "grab", userSelect: "none",
+          }}
+        >
+          {/* Imagem de fundo ou parcial */}
+          {card.imagePath && (
+            <div style={{
+              position: "absolute",
+              ...(card.imageStyle === "cover-right" ? { top: 0, right: 0, width: "45%", bottom: 0 } :
+                  card.imageStyle === "cover-top-left" ? { top: 0, left: 0, width: "48%", height: "55%" } :
+                  card.imageStyle === "cover-bg" ? { inset: 0, opacity: 0.35 } :
+                  { top: 0, right: 0, width: "42%", bottom: 0 }),
+              backgroundImage: `url(${card.imagePath})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              zIndex: 1,
+            }} />
+          )}
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-12">
-              <div className="bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/20 shadow-2xl">
-                <span className="text-6xl mb-4 block">🌾</span>
-                <p className="text-white font-bold text-lg">
-                  Natureza pura e autêntica
+          {/* Gradiente de leitura sobre imagem de fundo */}
+          {card.imageStyle === "cover-bg" && (
+            <div style={{
+              position: "absolute", inset: 0, zIndex: 2,
+              background: `linear-gradient(105deg, ${card.bg} 40%, ${card.bg}cc 65%, ${card.bg}55 100%)`,
+            }} />
+          )}
+          {card.imageStyle === "cover-right" && (
+            <div style={{
+              position: "absolute", top: 0, right: 0, width: "48%", bottom: 0, zIndex: 2,
+              background: `linear-gradient(to right, ${card.bg} 0%, transparent 40%)`,
+            }} />
+          )}
+          {card.imageStyle === "cover-top-left" && (
+            <div style={{
+              position: "absolute", top: 0, left: 0, width: "50%", height: "58%", zIndex: 2,
+              background: `linear-gradient(to bottom, transparent 40%, ${card.bg} 100%)`,
+            }} />
+          )}
+
+          {/* Listra superior de cor */}
+          <div style={{ height: 5, background: card.divider, flexShrink: 0, position: "relative", zIndex: 10 }} />
+
+          {/* Grid principal */}
+          <div style={{
+            flex: 1, display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            position: "relative", zIndex: 5, minHeight: 0,
+          }}>
+            {/* COL ESQUERDA */}
+            <div style={{
+              display: "flex", flexDirection: "column", justifyContent: "center",
+              padding: "clamp(1.6rem,4vw,4rem) clamp(2rem,4.5vw,4.5rem)",
+              borderRight: `1px solid ${card.divider}22`,
+            }}>
+              {/* Badge */}
+              <div style={{ marginBottom: "clamp(0.8rem,2vw,1.6rem)" }}>
+                <span style={{
+                  background: card.badge.bg, color: card.badge.fg,
+                  fontFamily: "'Lato', sans-serif",
+                  fontSize: "clamp(8px,0.75vw,10px)", fontWeight: 700,
+                  letterSpacing: "0.16em", padding: "5px 12px",
+                  borderRadius: 3, textTransform: "uppercase",
+                  display: "inline-block", maxWidth: "100%",
+                  whiteSpace: "normal", lineHeight: 1.4,
+                }}>
+                  {card.badge.text}
+                </span>
+              </div>
+
+              {/* Título linha a linha */}
+              <div style={{ lineHeight: 0.88 }}>
+                {card.titleLines.map((line: TitleLine, li: number) => (
+                  <div key={li} style={{
+                    fontFamily: line.font,
+                    fontSize: line.size,
+                    fontWeight: line.weight,
+                    color: line.color,
+                    letterSpacing: line.spacing,
+                    fontStyle: line.italic ? "italic" : "normal",
+                    textTransform: "uppercase",
+                    display: "block",
+                    lineHeight: 0.92,
+                    marginBottom: "0.04em",
+                  }}>
+                    {line.text}
+                  </div>
+                ))}
+              </div>
+
+              {/* Subtítulo */}
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: "clamp(0.7rem,1.8vw,1.5rem)" }}>
+                <div style={{ width: 28, height: 2, background: card.divider, flexShrink: 0 }} />
+                <p style={{
+                  fontFamily: "'Lato', sans-serif",
+                  fontSize: "clamp(8px,0.8vw,10px)", fontWeight: 700,
+                  letterSpacing: "0.22em", textTransform: "uppercase",
+                  color: card.subtitleColor, margin: 0,
+                }}>
+                  {card.subtitle}
                 </p>
               </div>
-              <div className="bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/20 shadow-2xl">
-                <span className="text-5xl mb-4 block">🏞️</span>
-                <p className="text-white font-bold text-lg">
-                  Trilhas e aventuras
-                </p>
-              </div>
-              <div className="bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/20 shadow-2xl">
-                <span className="text-4xl mb-4 block">🎨</span>
-                <p className="text-white font-bold text-lg">
-                  Cultura tradicional
-                </p>
+
+              {/* Callout se houver */}
+              {card.callout && (
+                <div style={{ marginTop: "clamp(1rem,2.5vw,2rem)" }}>
+                  <p style={{
+                    fontFamily: "'Oswald', sans-serif",
+                    fontSize: "clamp(1rem,2.2vw,1.8rem)", fontWeight: 700,
+                    color: card.calloutColor, textTransform: "uppercase",
+                    letterSpacing: "0.1em", margin: "0 0 4px",
+                  }}>
+                    {card.callout}
+                  </p>
+                  {card.phone && (
+                    <p style={{
+                      fontFamily: "'Lato', sans-serif",
+                      fontSize: "clamp(0.85rem,1.5vw,1.2rem)", fontWeight: 700,
+                      color: card.calloutColor, margin: 0,
+                    }}>
+                      {card.phone}
+                    </p>
+                  )}
+                </div>
+              )}
+
+              {/* Dot nav */}
+              <div style={{ display: "flex", gap: 8, marginTop: "clamp(1.2rem,3vw,2.8rem)" }}>
+                {items.map((_: Card, i: number) => (
+                  <button key={i}
+                    onClick={(e: React.MouseEvent) => { e.stopPropagation(); goTo(i); }}
+                    style={{
+                      width: i === active ? 28 : 8, height: 8,
+                      borderRadius: 100, border: "none",
+                      background: i === active ? card.divider : `${card.divider}40`,
+                      cursor: "pointer", transition: "all 0.3s ease", padding: 0,
+                    }}
+                  />
+                ))}
               </div>
             </div>
 
-            <p className="text-white/90 font-bold text-xl sm:text-2xl leading-relaxed max-w-3xl mx-auto mb-12">
-              Mergulhe no coração rural de Jaboatão. Descubra fazendas centenárias, trilhas ecológicas e tradições que conectam passado e presente.
-            </p>
+            {/* COL DIREITA */}
+            <div style={{
+              display: "flex", flexDirection: "column", justifyContent: "center",
+              padding: "clamp(1.6rem,4vw,4rem) clamp(2rem,4.5vw,4.5rem)",
+            }}>
+              <p style={{
+                fontFamily: "'Lato', sans-serif",
+                fontSize: "clamp(9px,0.75vw,10px)", fontWeight: 700,
+                letterSpacing: "0.35em", textTransform: "uppercase",
+                color: card.mutedColor, margin: "0 0 clamp(0.8rem,2vw,1.6rem)",
+              }}>
+                {sectionLabel}
+              </p>
 
-            <div className="bg-[#F9BC00]/20 backdrop-blur-md p-8 rounded-4xl border-2 border-[#F9BC00]/40 shadow-2xl max-w-2xl mx-auto">
-              <blockquote className="text-white font-black text-lg sm:text-xl italic leading-relaxed">
-                "No turismo rural, cada caminho conta uma história, cada semente carrega uma tradição, e cada encontro revela a alma da terra."
-              </blockquote>
+              <p style={{
+                fontFamily: "'Lato', sans-serif",
+                fontSize: "clamp(0.95rem,1.6vw,1.25rem)",
+                lineHeight: 1.8, fontWeight: 300,
+                color: card.textColor,
+                margin: "0 0 clamp(0.6rem,1.4vw,1.1rem)",
+              }}>
+                {card.description}
+              </p>
+
+              <p style={{
+                fontFamily: "'Lato', sans-serif",
+                fontSize: "clamp(0.8rem,1.15vw,0.95rem)",
+                lineHeight: 1.7,
+                color: card.mutedColor,
+                margin: "0 0 clamp(0.9rem,2.2vw,1.8rem)",
+              }}>
+                {card.details}
+              </p>
+
+              {/* Infos */}
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                {card.phone && !card.callout && (
+                  <InfoChip text={`📞 ${card.phone}`} textColor={card.textColor} accent={card.divider} />
+                )}
+                {card.address && (
+                  <InfoChip text={`📍 ${card.address}`} textColor={card.textColor} accent={card.divider} />
+                )}
+                {card.handle && (
+                  <InfoChip text={card.handle} textColor={card.subtitleColor} accent={card.divider} highlight />
+                )}
+              </div>
             </div>
-
           </div>
 
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════
-          JORNADA RURAL — Layout Orgânico
-      ══════════════════════════════════════ */}
-      <section className="relative w-full bg-linear-to-b from-[#1B4332] to-[#0F172A] py-20 sm:py-32 overflow-hidden">
-
-        {/* Elementos decorativos */}
-        <div className="absolute top-10 left-10 opacity-10">
-          <span className="text-8xl">🌱</span>
-        </div>
-        <div className="absolute bottom-10 right-10 opacity-10">
-          <span className="text-7xl">🌿</span>
-        </div>
-
-        <div className="max-w-7xl mx-auto px-5 sm:px-8">
-
-          {/* Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-5xl sm:text-7xl lg:text-8xl font-black text-[#F9BC00] leading-[0.85] tracking-tighter uppercase italic mb-4">
-              JORNADA <br />
-              <span className="text-white">RURAL</span>
-            </h2>
-            <p className="text-white/80 font-bold text-lg sm:text-xl max-w-2xl mx-auto">
-              Explore os caminhos que conectam natureza, cultura e sustentabilidade em Jaboatão
-            </p>
+          {/* Barra inferior de navegação */}
+          <div style={{
+            flexShrink: 0, position: "relative", zIndex: 10,
+            display: "flex", alignItems: "center", justifyContent: "space-between",
+            padding: "clamp(0.6rem,1.3vw,0.9rem) clamp(2rem,4.5vw,4.5rem)",
+            borderTop: `1px solid ${card.divider}20`,
+            background: card.imageStyle === "cover-bg" ? `${card.bg}e0` : card.bg,
+          }}>
+            <span style={{
+              fontFamily: "'Lato', sans-serif",
+              fontSize: 10, letterSpacing: "0.3em",
+              textTransform: "uppercase", color: card.mutedColor,
+            }}>
+              {active + 1} / {items.length}
+            </span>
+            <div style={{ display: "flex", gap: 10 }}>
+              <NavBtn label="← Anterior" primary={false} card={card} onClick={(e: React.MouseEvent) => { e.stopPropagation(); goPrev(); }} />
+              <NavBtn label="Próximo →" primary={true} card={card} onClick={(e: React.MouseEvent) => { e.stopPropagation(); goNext(); }} />
+            </div>
           </div>
+        </motion.div>
+      </AnimatePresence>
+    </section>
+  );
+}
 
-          {/* Layout em zigue-zague */}
-          <div className="space-y-16">
+function InfoChip({ text, textColor, accent, highlight = false }: InfoChipProps) {
+  return (
+    <span style={{
+      fontFamily: "'Lato', sans-serif",
+      fontSize: 11,
+      color: highlight ? textColor : textColor,
+      border: `1px solid ${accent}35`,
+      borderRadius: 4,
+      padding: "5px 10px",
+      background: `${accent}12`,
+    }}>
+      {text}
+    </span>
+  );
+}
 
-            {/* Card 1 - Esquerda */}
-            <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
-              <div className="lg:w-1/2 order-2 lg:order-1">
-                <div className="bg-linear-to-br from-[#4ADE80]/20 to-[#22C55E]/10 backdrop-blur-md p-8 rounded-4xl border border-white/10 shadow-2xl">
-                  <div className="flex items-center gap-4 mb-6">
-                    <span className="text-5xl">🌾</span>
-                    <h3 className="text-3xl font-black text-[#F9BC00] uppercase italic">Fazendas Históricas</h3>
-                  </div>
-                  <p className="text-white/90 font-bold text-lg leading-relaxed mb-6">
-                    Visite engenhos seculares que preservam técnicas agrícolas tradicionais. Conheça a história da cana-de-açúcar e do desenvolvimento rural de Jaboatão.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 bg-[#F9BC00]/20 rounded-full text-[#F9BC00] font-bold text-sm">História</span>
-                    <span className="px-3 py-1 bg-[#4ADE80]/20 rounded-full text-[#4ADE80] font-bold text-sm">Agricultura</span>
-                    <span className="px-3 py-1 bg-[#22C55E]/20 rounded-full text-[#22C55E] font-bold text-sm">Tradição</span>
-                  </div>
-                </div>
-              </div>
-              <div className="lg:w-1/2 order-1 lg:order-2">
-                <div className="relative">
-                  <div className="absolute -top-4 -left-4 w-20 h-20 bg-[#F9BC00]/20 rounded-full blur-xl"></div>
-                  <div className="absolute -bottom-4 -right-4 w-16 h-16 bg-[#4ADE80]/20 rounded-full blur-xl"></div>
-                  <span className="text-9xl lg:text-[12rem] block text-[#F9BC00]/30">🏛️</span>
-                </div>
-              </div>
-            </div>
+function NavBtn({ label, primary, card, onClick }: NavBtnProps) {
+  return (
+    <button onClick={onClick} style={{
+      fontFamily: "'Lato', sans-serif",
+      fontSize: 11, fontWeight: 700,
+      letterSpacing: "0.1em", textTransform: "uppercase",
+      padding: "8px 22px", borderRadius: 100,
+      border: `1.5px solid ${card.divider}`,
+      background: primary ? card.divider : "transparent",
+      color: primary ? card.badge.fg : card.divider,
+      cursor: "pointer",
+    }}>
+      {label}
+    </button>
+  );
+}
 
-            {/* Card 2 - Direita */}
-            <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
-              <div className="lg:w-1/2">
-                <div className="relative">
-                  <div className="absolute -top-4 -right-4 w-24 h-24 bg-[#22C55E]/20 rounded-full blur-xl"></div>
-                  <div className="absolute -bottom-4 -left-4 w-20 h-20 bg-[#16A34A]/20 rounded-full blur-xl"></div>
-                  <span className="text-9xl lg:text-[12rem] block text-[#4ADE80]/30">🌿</span>
-                </div>
-              </div>
-              <div className="lg:w-1/2">
-                <div className="bg-linear-to-br from-[#22C55E]/20 to-[#16A34A]/10 backdrop-blur-md p-8 rounded-4xl border border-white/10 shadow-2xl">
-                  <div className="flex items-center gap-4 mb-6">
-                    <span className="text-5xl">🌿</span>
-                    <h3 className="text-3xl font-black text-[#4ADE80] uppercase italic">Trilhas Ecológicas</h3>
-                  </div>
-                  <p className="text-white/90 font-bold text-lg leading-relaxed mb-6">
-                    Caminhe por trilhas naturais que revelam a biodiversidade local. Observe aves, plantas nativas e desfrute de vistas panorâmicas deslumbrantes.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 bg-[#4ADE80]/20 rounded-full text-[#4ADE80] font-bold text-sm">Natureza</span>
-                    <span className="px-3 py-1 bg-[#22C55E]/20 rounded-full text-[#22C55E] font-bold text-sm">Ecologia</span>
-                    <span className="px-3 py-1 bg-[#16A34A]/20 rounded-full text-[#16A34A] font-bold text-sm">Aventura</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 3 - Esquerda */}
-            <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
-              <div className="lg:w-1/2 order-2 lg:order-1">
-                <div className="bg-linear-to-br from-[#F97316]/20 to-[#EA580C]/10 backdrop-blur-md p-8 rounded-4xl border border-white/10 shadow-2xl">
-                  <div className="flex items-center gap-4 mb-6">
-                    <span className="text-5xl">🎨</span>
-                    <h3 className="text-3xl font-black text-[#F97316] uppercase italic">Artesanato Local</h3>
-                  </div>
-                  <p className="text-white/90 font-bold text-lg leading-relaxed mb-6">
-                    Conheça artesãos que mantêm vivas técnicas ancestrais. Aprenda sobre cerâmica, tecelagem e outras formas de expressão cultural tradicional.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 bg-[#F97316]/20 rounded-full text-[#F97316] font-bold text-sm">Artesanato</span>
-                    <span className="px-3 py-1 bg-[#EA580C]/20 rounded-full text-[#EA580C] font-bold text-sm">Cultura</span>
-                    <span className="px-3 py-1 bg-[#DC2626]/20 rounded-full text-[#DC2626] font-bold text-sm">Tradição</span>
-                  </div>
-                </div>
-              </div>
-              <div className="lg:w-1/2 order-1 lg:order-2">
-                <div className="relative">
-                  <div className="absolute -top-4 -left-4 w-20 h-20 bg-[#F97316]/20 rounded-full blur-xl"></div>
-                  <div className="absolute -bottom-4 -right-4 w-16 h-16 bg-[#EA580C]/20 rounded-full blur-xl"></div>
-                  <span className="text-9xl lg:text-[12rem] block text-[#F97316]/30">🎨</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 4 - Direita */}
-            <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
-              <div className="lg:w-1/2">
-                <div className="relative">
-                  <div className="absolute -top-4 -right-4 w-24 h-24 bg-[#8B5CF6]/20 rounded-full blur-xl"></div>
-                  <div className="absolute -bottom-4 -left-4 w-20 h-20 bg-[#7C3AED]/20 rounded-full blur-xl"></div>
-                  <span className="text-9xl lg:text-[12rem] block text-[#8B5CF6]/30">🏞️</span>
-                </div>
-              </div>
-              <div className="lg:w-1/2">
-                <div className="bg-linear-to-br from-[#8B5CF6]/20 to-[#7C3AED]/10 backdrop-blur-md p-8 rounded-4xl border border-white/10 shadow-2xl">
-                  <div className="flex items-center gap-4 mb-6">
-                    <span className="text-5xl">🏞️</span>
-                    <h3 className="text-3xl font-black text-[#8B5CF6] uppercase italic">Cachoeiras & Rios</h3>
-                  </div>
-                  <p className="text-white/90 font-bold text-lg leading-relaxed mb-6">
-                    Refresque-se nas águas cristalinas dos rios e cachoeiras de Jaboatão. Locais perfeitos para banhos, contemplação e conexão com a natureza.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 bg-[#8B5CF6]/20 rounded-full text-[#8B5CF6] font-bold text-sm">Água</span>
-                    <span className="px-3 py-1 bg-[#7C3AED]/20 rounded-full text-[#7C3AED] font-bold text-sm">Natureza</span>
-                    <span className="px-3 py-1 bg-[#6D28D9]/20 rounded-full text-[#6D28D9] font-bold text-sm">Relaxamento</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
-
-
-    </main>
+export default function TurismoRuralPage() {
+  return (
+    <>
+      <link href={FONT_URL} rel="stylesheet" />
+      <main style={{ width: "100%", overflowX: "hidden" }}>
+        <HeroStack items={cardSets[0]} sectionLabel="Destinos Rurais" />
+        <HeroStack items={cardSets[1]} sectionLabel="Cultura & Experiências" />
+      </main>
+    </>
   );
 }
