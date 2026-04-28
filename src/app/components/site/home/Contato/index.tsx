@@ -1,41 +1,58 @@
 "use client";
 
-import React from "react";
-
-const contact = [
-  {
-    icon: "📞",
-    label: "Telefone",
-    value: "(81) 99827-0398",
-  },
-  {
-    icon: "📍",
-    label: "Centro de Informações",
-    value: "Complexo Administrativo da Prefeitura do Jaboatão Dos Guararapes",
-  },
-  {
-    icon: "🕐",
-    label: "Horário Turístico",
-    value: "Segunda a Sexta, 08h às 14h",
-  },
-];
+import React, { useState } from "react";
 
 export default function ContactSection() {
-  const whatsappNumber = "5581998270398";
-  const whatsappMessage = encodeURIComponent("Olá! Gostaria de planejar meu roteiro em Jaboatão.");
+  const [formData, setFormData] = useState({
+    nome: "",
+    email: "",
+    mensagem: ""
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(null);
 
-  const handleClick = (phone: string, e: React.MouseEvent) => {
-  e.preventDefault();
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
 
-  const isMobile = window.matchMedia('(pointer: coarse)').matches;
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus(null);
 
-  if (isMobile) {
-    const cleanNumber = phone.replace(/\D/g, '');
-    window.open(`tel:${cleanNumber}`);
+    // Aqui você deve configurar o endpoint real que enviará o email
+    // Exemplo usando uma API route do Next.js
+    try {
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setSubmitStatus("success");
+        setFormData({ nome: "", email: "", mensagem: "" });
+      } else {
+        setSubmitStatus("error");
+      }
+    } catch (error) {
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-
+  const location = {
+    name: "Complexo Administrativo da Prefeitura do Jaboatão Dos Guararapes",
+    address: "Jaboatão dos Guararapes - PE",
+    lat: -8.1126,
+    lng: -35.0148
+  };
 
   return (
     <section id="contato" className="relative min-h-screen lg:h-screen w-full flex items-center bg-[#e3e7ef] overflow-hidden py-20 lg:py-0">
@@ -47,69 +64,142 @@ export default function ContactSection() {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
           
-          {/* COLUNA ESQUERDA: TEXTO */}
-          <div className="text-center lg:text-left">
-            <div className="inline-block px-4 py-2 bg-[#F9BC00]/20 rounded-lg mb-6">
-              <span className="text-xs font-black uppercase tracking-[0.3em] text-[#00751D]">Fale com a Gente</span>
+          {/* COLUNA ESQUERDA: MAPA E INFORMAÇÕES */}
+          <div className="space-y-6">
+            <div className="text-center lg:text-left">
+              <div className="inline-block px-4 py-2 bg-[#F9BC00]/20 rounded-lg mb-6">
+                <span className="text-xs font-black uppercase tracking-[0.3em] text-[#00751D]">Onde Estamos</span>
+              </div>
+              
+              <h2 className="text-5xl lg:text-7xl font-black text-[#0044CA] leading-[0.85] tracking-tighter uppercase italic mb-8">
+                NOSSA <br />
+                <span className="text-[#F9BC00] drop-shadow-[4px_4px_0px_#00751D]">LOCALIZAÇÃO</span>
+              </h2>
             </div>
-            
-            <h2 className="text-5xl lg:text-8xl font-black text-[#0044CA] leading-[0.85] tracking-tighter uppercase italic mb-8">
-              TIRE SUAS <br />
-              <span className="text-[#F9BC00] drop-shadow-[4px_4px_0px_#00751D]">DÚVIDAS</span>
-            </h2>
 
+            {/* Mapa */}
+            <div className="bg-white rounded-[2.5rem] overflow-hidden border-2 border-slate-100 shadow-xl">
+              <iframe
+                src={`https://www.google.com/maps?q=${location.lat},${location.lng}&z=15&output=embed`}
+                width="100%"
+                height="300"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Mapa da Prefeitura de Jaboatão dos Guararapes"
+                className="w-full"
+              />
+              <div className="p-6">
+                <p className="text-lg font-black text-[#0044CA]">
+                  📍 {location.name}
+                </p>
+                <p className="text-sm text-gray-600 mt-2">
+                  Complexo Administrativo da Prefeitura do Jaboatão Dos Guararapes
+                </p>
+              </div>
+            </div>
 
-            <a
-              href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-4 bg-[#00751D] text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest transition-all shadow-[8px_8px_0px_#F9BC00] hover:shadow-none hover:translate-x-1 hover:translate-y-1"
-            >
-              <span className="text-2xl">💬</span>
-              WhatsApp Turismo
-            </a>
-          </div>
-
-          {/* COLUNA DIREITA: CARDS */}
-          <div className="flex flex-col gap-4">
-            {contact.map((c) => (
-              <div 
-                key={c.label} 
-                className="group bg-white p-6 lg:p-8 rounded-[2.5rem] border-2 border-slate-100 hover:border-[#0044CA] transition-all shadow-xl hover:shadow-2xl flex items-center gap-6"
-              >
-                <div className="w-16 h-16 rounded-2xl bg-slate-50 flex items-center justify-center text-3xl group-hover:bg-[#F9BC00] transition-colors">
-                  {c.icon}
+            {/* Informação adicional */}
+            <div className="bg-[#0044CA]/10 rounded-2xl p-6 border border-[#0044CA]/20">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-[#F9BC00] flex items-center justify-center text-2xl">
+                  🏛️
                 </div>
-                <div className="flex flex-col text-left">
-                  <span className="text-[10px] font-black uppercase tracking-widest text-[#00751D] mb-1">
-                    {c.label}
-                  </span>
-                    {c.label === 'Centro de Informações' ? (
-                    <a 
-                      href={`https://www.google.com/maps?q=${encodeURIComponent(c.value)}`} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-lg lg:text-xl font-black text-[#0044CA] hover:text-[#F9BC00] transition-colors leading-tight"
-                      style={{ cursor: "pointer" }}
-                    >
-                      {c.value}
-                    </a>
-                    ) : c.label === 'Telefone' ? (
-                    <a 
-                      className="text-lg lg:text-xl font-black text-[#0044CA] hover:text-[#F9BC00] transition-colors leading-tight"
-                      onClick={(e) => handleClick(c.value, e)}
-                      >
-                        {c.value}
-                    </a>
-                    ) : (
-                      <span className="text-lg lg:text-xl font-black text-[#0044CA] hover:text-[#F9BC00] transition-colors leading-tight">{c.value}</span>
-                    )}
+                <div>
+                  <p className="text-xs font-black uppercase tracking-wider text-[#00751D]">Instituto de Previdência</p>
+                  <p className="text-sm font-bold text-[#0044CA]">IPSM - Jaboatão dos Guararapes</p>
                 </div>
               </div>
-            ))}
+            </div>
+          </div>
 
+          {/* COLUNA DIREITA: FORMULÁRIO */}
+          <div className="bg-white rounded-[2.5rem] p-8 lg:p-10 border-2 border-slate-100 shadow-xl">
+            <div className="text-center mb-8">
+              <div className="inline-block px-4 py-2 bg-[#F9BC00]/20 rounded-lg mb-4">
+                <span className="text-xs font-black uppercase tracking-[0.3em] text-[#00751D]">Fale Conosco</span>
+              </div>
+              <h3 className="text-3xl font-black text-[#0044CA] uppercase italic">
+                Envie sua <span className="text-[#F9BC00] drop-shadow-[2px_2px_0px_#00751D]">mensagem</span>
+              </h3>
+              <p className="text-gray-600 mt-2 text-sm">
+                Responderemos o mais breve possível
+              </p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label htmlFor="nome" className="block text-xs font-black uppercase tracking-wider text-[#00751D] mb-2">
+                  Nome Completo
+                </label>
+                <input
+                  type="text"
+                  id="nome"
+                  name="nome"
+                  value={formData.nome}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-5 py-4 bg-slate-50 border-2 border-slate-200 rounded-2xl font-medium text-[#0044CA] placeholder:text-gray-400 focus:outline-none focus:border-[#F9BC00] transition-colors"
+                  placeholder="Digite seu nome"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="email" className="block text-xs font-black uppercase tracking-wider text-[#00751D] mb-2">
+                  E-mail
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-5 py-4 bg-slate-50 border-2 border-slate-200 rounded-2xl font-medium text-[#0044CA] placeholder:text-gray-400 focus:outline-none focus:border-[#F9BC00] transition-colors"
+                  placeholder="seu@email.com"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="mensagem" className="block text-xs font-black uppercase tracking-wider text-[#00751D] mb-2">
+                  Mensagem
+                </label>
+                <textarea
+                  id="mensagem"
+                  name="mensagem"
+                  value={formData.mensagem}
+                  onChange={handleChange}
+                  required
+                  rows={5}
+                  className="w-full px-5 py-4 bg-slate-50 border-2 border-slate-200 rounded-2xl font-medium text-[#0044CA] placeholder:text-gray-400 focus:outline-none focus:border-[#F9BC00] transition-colors resize-none"
+                  placeholder="Digite sua mensagem aqui..."
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full inline-flex items-center justify-center gap-3 bg-[#00751D] text-white px-8 py-5 rounded-2xl font-black uppercase tracking-widest transition-all shadow-[8px_8px_0px_#F9BC00] hover:shadow-none hover:translate-x-1 hover:translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <span className="text-2xl">✉️</span>
+                {isSubmitting ? "Enviando..." : "Enviar Mensagem"}
+              </button>
+
+              {submitStatus === "success" && (
+                <div className="mt-4 p-4 bg-green-100 border-2 border-green-500 rounded-2xl text-green-700 text-center font-bold">
+                  ✅ Mensagem enviada com sucesso!
+                </div>
+              )}
+
+              {submitStatus === "error" && (
+                <div className="mt-4 p-4 bg-red-100 border-2 border-red-500 rounded-2xl text-red-700 text-center font-bold">
+                  ❌ Erro ao enviar. Tente novamente.
+                </div>
+              )}
+            </form>
           </div>
 
         </div>
