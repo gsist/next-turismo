@@ -1,3 +1,4 @@
+// src/app/components/site/home/Contato/index.tsx
 "use client";
 
 import React, { useState } from "react";
@@ -18,34 +19,41 @@ export default function ContactSection() {
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitStatus(null);
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setIsSubmitting(true);
+  setSubmitStatus(null);
 
-    // Aqui você deve configurar o endpoint real que enviará o email
-    // Exemplo usando uma API route do Next.js
-    try {
-      const response = await fetch("/api/send-email", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+  console.log('🚀 Enviando formulário:', formData); // 👈 ADICIONE ISSO
 
-      if (response.ok) {
-        setSubmitStatus("success");
-        setFormData({ nome: "", email: "", mensagem: "" });
-      } else {
-        setSubmitStatus("error");
-      }
-    } catch (error) {
+  try {
+    const response = await fetch("/api/send-email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    console.log('📡 Resposta da API:', response.status); // 👈 ADICIONE ISSO
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log('✅ Sucesso:', data);
+      setSubmitStatus("success");
+      setFormData({ nome: "", email: "", mensagem: "" });
+    } else {
+      const error = await response.json();
+      console.error('❌ Erro da API:', error);
       setSubmitStatus("error");
-    } finally {
-      setIsSubmitting(false);
     }
-  };
+  } catch (error) {
+    console.error('❌ Erro no fetch:', error);
+    setSubmitStatus("error");
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   const location = {
     name: "Complexo Administrativo da Prefeitura do Jaboatão Dos Guararapes",
@@ -102,18 +110,6 @@ export default function ContactSection() {
               </div>
             </div>
 
-            {/* Informação adicional */}
-            <div className="bg-[#0044CA]/10 rounded-2xl p-6 border border-[#0044CA]/20">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-[#F9BC00] flex items-center justify-center text-2xl">
-                  🏛️
-                </div>
-                <div>
-                  <p className="text-xs font-black uppercase tracking-wider text-[#00751D]">Instituto de Previdência</p>
-                  <p className="text-sm font-bold text-[#0044CA]">IPSM - Jaboatão dos Guararapes</p>
-                </div>
-              </div>
-            </div>
           </div>
 
           {/* COLUNA DIREITA: FORMULÁRIO */}
