@@ -1,8 +1,8 @@
 "use client";
-import PreCadastroUsuariosPage from "@/app/components/SistemaAdmin/Precadastro";
+import CriarEventosPage from "@/app/components/SistemaAdmin/Eventos";
 
-export default function PrecadastroPage() {
+export default function CriarEventos() {
   return (
-    <PreCadastroUsuariosPage/>
+    <CriarEventosPage/>
   );
 }

@@ -44,7 +44,6 @@ export default function Sidebar({
     : isDark ? "/images/Logo/logo-longa-fundo.png" : "/images/Logo/logo-longa-fundo.png";
 
   const menuItems: MenuItem[] = [
-    { href: "/sistema-admin/criar-eventos", icon: <FiUser size={20} />, label: "Criar Eventos" },
     { href: "/sistema-admin/eventos", icon: <FiUser size={20} />, label: " Eventos" },
 
   ];
