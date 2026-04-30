@@ -3,49 +3,110 @@ import Image from "next/image";
 
 export default function HeroSitioTilapia() {
   return (
-    <section className="relative min-h-screen w-full overflow-hidden" style={{ backgroundColor: '#1B5E20' }}>
-      {/* Imagem no topo esquerdo */}
-      <div className="absolute top-0 left-0 w-[50%] h-[55%] z-0">
-        <Image src="/images/Lugares/bg-ondeir.jpg" alt="Sítio Recanto da Tilápia" fill className="object-cover" />
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, transparent 40%, #1B5E20 100%)' }} />
-      </div>
+    <section className="relative w-full h-full flex items-center justify-center overflow-hidden" style={{ backgroundColor: '#1E3A25' }}>
+      
+      <div className="w-full max-w-[1200px] mx-auto px-4 md:px-8 lg:px-12 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 h-full py-6 md:py-4">
+        
+        {/* === COLUNA ESQUERDA === */}
+        <div className="w-full md:w-5/12 flex flex-col justify-center gap-4 relative h-full">
+          
+          {/* Imagem Circular */}
+          <div className="relative w-40 h-40 md:w-48 md:h-48 lg:w-60 lg:h-60 rounded-full border-[6px] md:border-[8px] border-[#D4E0CD] overflow-hidden shadow-2xl flex-shrink-0 bg-white">
+            <Image 
+              src="/images/Lugares/bg-ondeir.jpg" 
+              alt="Sítio Recanto da Tilápia" 
+              fill 
+              className="object-cover" 
+            />
+          </div>
 
-      {/* Conteúdo */}
-      <div className="relative z-10 h-full flex flex-col justify-end p-8 lg:p-16">
-        <div className="max-w-3xl">
-          {/* Badge */}
-          <span className="inline-block px-4 py-2 text-xs font-bold tracking-widest uppercase rounded-sm mb-6" style={{ backgroundColor: '#81C784', color: '#1B5E20' }}>
-            UMA IMERSÃO NA CULTURA RURAL
-          </span>
+          {/* Bloco de Informações */}
+          <div className="flex flex-col gap-3 mt-2">
+            
+            {/* Instagram */}
+            <div className="flex items-center gap-2 text-[#D4E0CD] font-semibold text-xs lg:text-sm">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+              @sitio_recanto_da_tilapia
+            </div>
 
-          {/* Título */}
-          <h1 className="leading-[0.9] mb-4">
-            <span className="block text-5xl lg:text-8xl font-black tracking-tight text-white" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>SÍTIO RECANTO</span>
-            <span className="block text-6xl lg:text-9xl font-black tracking-tight text-white" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>DA TILÁPIA</span>
-          </h1>
+            {/* Endereço */}
+            <div className="flex flex-col gap-0.5">
+              <p className="text-[#D4E0CD] text-xs lg:text-sm font-semibold flex items-center gap-2">
+                <span className="w-1 h-1 rounded-full bg-[#D4E0CD]" />
+                Engenho Penandubinha, 14
+              </p>
+              <p className="text-[#648866] text-[10px] lg:text-xs font-semibold ml-3">
+                Jaboatão dos Guararapes
+              </p>
+            </div>
 
-          {/* Subtítulo */}
-          <p className="text-sm font-bold tracking-widest uppercase mb-8" style={{ color: '#81C784' }}>CULTURA & TRADIÇÃO DO CAMPO</p>
+            {/* Badge de Visitação */}
+            <div className="inline-block px-3 py-1.5 bg-[#E9E0A6] text-[#1E3A25] rounded-full text-[10px] font-bold tracking-widest uppercase w-max shadow-sm">
+              VISITAÇÃO SÁB
+            </div>
 
-          {/* Descrição */}
-          <p className="text-lg leading-relaxed mb-4 text-white/90 max-w-xl">
-            No Engenho Penanduíba, um refúgio de tranquilidade onde visitantes acompanham o plantio e colheita.
-          </p>
-          <p className="text-base leading-relaxed text-white/70 max-w-lg">
-            Macaxeira, cana, pratos típicos e um memorial cultural com objetos centenários.
-          </p>
+            {/* Contatos */}
+            <div className="mt-1 text-xs lg:text-sm flex flex-col gap-1 relative w-max">
+              <p className="font-semibold tracking-wide">
+                <span className="text-[#E9E0A6]">Katia Siqueira</span> 
+                <span className="text-[#8FB290] ml-2">81 99924.6685</span>
+              </p>
+              <p className="font-semibold tracking-wide">
+                <span className="text-[#8FB290]">Oziel Lima</span> 
+                <span className="text-[#8FB290] ml-3">81 99597.5338</span>
+              </p>
 
-          {/* Info */}
-          <div className="mt-8 flex flex-wrap gap-4">
-            <span className="px-4 py-2 text-sm border rounded" style={{ borderColor: '#81C78440', color: '#81C784' }}>📍 Engenho Penanduíba, 54</span>
-            <span className="px-4 py-2 text-sm border rounded" style={{ borderColor: '#81C78440', color: '#81C784' }}>@sitio_recanto_da_tilapia</span>
+              {/* Padrão de Pontinhos (Dotted Pattern) */}
+              <div className="absolute top-1 -right-16 grid grid-cols-3 gap-1.5 opacity-30">
+                {[...Array(9)].map((_, i) => (
+                  <div key={i} className="w-1 h-1 lg:w-1.5 lg:h-1.5 rounded-full bg-[#8FB290]" />
+                ))}
+              </div>
+            </div>
+
+            {/* Botão Inferior (Badge Imersão) */}
+            <div className="inline-block px-4 py-2 lg:px-5 lg:py-2.5 bg-[#E9E0A6] text-[#1E3A25] rounded-full text-[10px] lg:text-xs font-bold tracking-widest uppercase text-center w-max mt-2 leading-tight shadow-md hover:scale-105 transition-transform cursor-default">
+              UMA IMERSÃO<br />NA CULTURA RURAL
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Barra inferior */}
-      <div className="absolute bottom-0 left-0 right-0 py-4 px-8" style={{ backgroundColor: '#81C78420', borderTop: '3px solid #81C784' }}>
-        <span className="text-xs font-bold tracking-widest uppercase text-white/60">02 / 06 — SÍTIO RECANTO DA TILÁPIA</span>
+
+        {/* === COLUNA DIREITA === */}
+        <div className="w-full md:w-6/12 flex flex-col items-start justify-center gap-2 h-full pb-6 md:pb-0">
+          
+          <span className="text-[#E9E0A6] text-[10px] lg:text-xs font-bold tracking-[0.4em] uppercase">
+            SÍTIO RECANTO
+          </span>
+
+          {/* Título Principal Stacked */}
+          <h1 className="flex flex-col font-['Playfair_Display'] leading-[1] -mt-1 gap-1">
+            <span className="text-white font-bold text-4xl md:text-5xl lg:text-[4rem] tracking-tight">Sítio Recanto</span>
+            <span className="text-[#E9E0A6] font-bold italic text-4xl md:text-5xl lg:text-[4rem] tracking-tight">da Tilápia</span>
+          </h1>
+
+          <h2 className="text-[#E9E0A6] font-['Playfair_Display'] italic text-lg md:text-xl lg:text-2xl font-bold mt-1">
+            Engenho Penandubinha
+          </h2>
+
+          {/* Linha Vermelha */}
+          <div className="w-10 lg:w-12 h-1 bg-[#DC5C38] my-2" />
+
+          {/* Parágrafo Descritivo */}
+          <p className="text-[#D4E0CD] italic font-['Playfair_Display'] text-sm md:text-base lg:text-lg leading-relaxed max-w-md">
+            Um refúgio de tranquilidade e tradição. Acompanhe o plantio e a colheita, prove pratos típicos feitos com ingredientes da terra, conheça a cooperativa de mulheres e visite o memorial cultural da história agrícola local.
+          </p>
+
+          {/* Botão de Agendar */}
+          <button className="mt-4 px-5 py-2 lg:px-6 lg:py-3 border border-[#487854] hover:bg-[#487854]/20 transition-all text-white text-[10px] lg:text-xs font-bold tracking-widest uppercase rounded-md shadow-sm">
+            AGENDE SUA VISITA
+          </button>
+        </div>
+
       </div>
     </section>
   );

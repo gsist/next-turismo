@@ -2,7 +2,7 @@
 
 export default function HeroTurismoRural() {
   return (
-    <section className="relative min-h-screen w-full overflow-hidden flex" style={{ backgroundColor: '#F5F0E8' }}>
+    <section className="relative min-h-screen w-full overflow-hidden flex" style={{ backgroundColor: '#f8eedeff' }}>
       {/* Faixa vertical verde escura na esquerda */}
       <div 
         className="absolute left-0 top-0 w-16 lg:w-24 h-full z-20 flex items-center justify-center"
@@ -68,15 +68,6 @@ export default function HeroTurismoRural() {
               Venha percorrer trilhas rurais, conhecer a cultura, trabalhar a terra e aprender com os verdadeiros turistas do campo — os agricultores de Jaboatão.
             </p>
 
-            <div className="flex flex-wrap items-center gap-6">
-              <button className="px-6 py-3 text-sm font-semibold tracking-wider uppercase border-2 transition-all hover:opacity-70" style={{ borderColor: '#1B4332', color: '#1B4332' }}>
-                AGENDE SUA VISITA
-              </button>
-              <div>
-                <p className="text-xs font-semibold tracking-widest uppercase mb-1" style={{ color: '#C75B3A' }}>LIGUE AGORA</p>
-                <p className="text-xl font-bold" style={{ color: '#1B4332' }}>81 9 9866.5939</p>
-              </div>
-            </div>
           </div>
         </div>
 

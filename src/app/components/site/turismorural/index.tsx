@@ -133,7 +133,7 @@ export default function TurismoRuralPage() {
         
         {/* Título da Página */}
         <div className="w-full text-center mb-10 px-4 mt-8">
-          <h1 className="text-4xl md:text-6xl font-['Playfair_Display'] font-bold text-[#1B4332] mb-4">
+          <h1 className="text-4xl md:text-6xl font-['Playfair_Display'] font-bold text-[#1B4332] mb-4 mt-20">
             Turismo Rural
           </h1>
           <p className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto font-['Lato']">
