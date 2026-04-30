@@ -45,7 +45,7 @@ export default function Sidebar({
 
   const menuItems: MenuItem[] = [
     { href: "/sistema-admin/criar-eventos", icon: <FiUser size={20} />, label: "Criar Eventos" },
-    { href: "/sistema-admin/administrar-eventos", icon: <FiUser size={20} />, label: "Administrat Eventos" },
+    { href: "/sistema-admin/eventos", icon: <FiUser size={20} />, label: " Eventos" },
 
   ];
 

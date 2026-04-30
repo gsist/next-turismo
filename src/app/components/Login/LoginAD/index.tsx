@@ -77,7 +77,7 @@ export default function CipteaAdminLogin() {
     localStorage.setItem('ciptea_admin', 'true');
     
     setTimeout(() => {
-      router.push('/sistema-admin/beneficiarios');
+      router.push('/sistema-admin/criar-eventos');
     }, 1500);
   };
 
