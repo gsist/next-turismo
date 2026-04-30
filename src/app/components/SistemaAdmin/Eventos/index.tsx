@@ -12,8 +12,10 @@ import {
   FiClock,
 } from "react-icons/fi";
 import { useTheme } from "next-themes";
+import axios from "axios";
 
-// Mock de dados - será substituído pela API depois
+const baseURL = process.env.NEXT_PUBLIC_API_URL;
+
 type Evento = {
   id: number;
   titulo: string;
@@ -21,30 +23,6 @@ type Evento = {
   data_fim_evento: string;
   criado_em: string;
 };
-
-const mockEventos: Evento[] = [
-  {
-    id: 1,
-    titulo: "Festival de Inverno 2025",
-    data_inicio_evento: "2025-07-15",
-    data_fim_evento: "2025-07-20",
-    criado_em: "2025-01-10 08:30:00",
-  },
-  {
-    id: 2,
-    titulo: "Congresso de Turismo Regional",
-    data_inicio_evento: "2025-08-05",
-    data_fim_evento: "2025-08-07",
-    criado_em: "2025-01-12 14:15:00",
-  },
-  {
-    id: 3,
-    titulo: "Feira Gastronômica",
-    data_inicio_evento: "2025-09-10",
-    data_fim_evento: "2025-09-15",
-    criado_em: "2025-01-15 09:45:00",
-  },
-];
 
 type ModalState = {
   open: boolean;
@@ -89,12 +67,11 @@ const CriarEventosPage: React.FC = () => {
     try {
       setLoading(true);
       setError(null);
-      // Simula delay de API
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      setEventos(mockEventos);
-    } catch (err) {
+      const response = await axios.get<{ eventos: Evento[] }>(`${baseURL}/eventos`);
+      setEventos(response.data.eventos);
+    } catch (err: any) {
       console.error("Erro ao buscar eventos:", err);
-      setError("Não foi possível carregar os eventos.");
+      setError(err.response?.data?.message || "Não foi possível carregar os eventos.");
     } finally {
       setLoading(false);
     }
@@ -164,39 +141,30 @@ const CriarEventosPage: React.FC = () => {
     try {
       setModal((prev) => ({ ...prev, saving: true, error: null }));
 
-      // Simula chamada API
-      await new Promise((resolve) => setTimeout(resolve, 800));
-
       if (modal.isEdit && modal.eventoId) {
         // Atualiza evento existente
-        setEventos((prev) =>
-          prev.map((e) =>
-            e.id === modal.eventoId
-              ? {
-                  ...e,
-                  titulo: modal.titulo.trim(),
-                  data_inicio_evento: modal.dataInicio,
-                  data_fim_evento: modal.dataFim,
-                }
-              : e
-          )
-        );
-      } else {
-        // Cria novo evento
-        const novoEvento: Evento = {
-          id: Math.max(...eventos.map((e) => e.id), 0) + 1,
+        await axios.put(`${baseURL}/eventos/update/${modal.eventoId}`, {
           titulo: modal.titulo.trim(),
           data_inicio_evento: modal.dataInicio,
           data_fim_evento: modal.dataFim,
-          criado_em: new Date().toISOString().slice(0, 19).replace("T", " "),
-        };
-        setEventos((prev) => [...prev, novoEvento]);
+        });
+      } else {
+        // Cria novo evento
+        await axios.post(`${baseURL}/eventos/create`, {
+          titulo: modal.titulo.trim(),
+          data_inicio_evento: modal.dataInicio,
+          data_fim_evento: modal.dataFim,
+        });
       }
 
+      await fetchEventos();
       closeModal();
-    } catch (err) {
+    } catch (err: any) {
       console.error("Erro ao salvar evento:", err);
-      setModal((prev) => ({ ...prev, error: "Não foi possível salvar o evento." }));
+      setModal((prev) => ({ 
+        ...prev, 
+        error: err.response?.data?.message || "Não foi possível salvar o evento." 
+      }));
     } finally {
       setModal((prev) => ({ ...prev, saving: false }));
     }
@@ -206,12 +174,11 @@ const CriarEventosPage: React.FC = () => {
     if (!confirm("Tem certeza que deseja excluir este evento?")) return;
 
     try {
-      // Simula chamada API
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      setEventos((prev) => prev.filter((e) => e.id !== eventoId));
-    } catch (err) {
+      await axios.delete(`${baseURL}/eventos/delete/${eventoId}`);
+      await fetchEventos();
+    } catch (err: any) {
       console.error("Erro ao excluir evento:", err);
-      alert("Não foi possível excluir o evento.");
+      alert(err.response?.data?.message || "Não foi possível excluir o evento.");
     }
   };
 

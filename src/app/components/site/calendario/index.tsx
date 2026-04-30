@@ -4,6 +4,10 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaChevronLeft, FaChevronRight, FaStar, FaCalendarDay } from 'react-icons/fa';
 import { IoCalendarOutline } from 'react-icons/io5';
+import axios from 'axios';
+import { FiRefreshCw } from 'react-icons/fi';
+
+const baseURL = process.env.NEXT_PUBLIC_API_URL;
 
 interface Event {
   id: string;
@@ -12,25 +16,49 @@ interface Event {
   endDate: string;
 }
 
-const mockEvents: Event[] = [
-  { id: '1', name: 'Festival de Música', startDate: '2026-05-15', endDate: '2026-05-18' },
-  { id: '2', name: 'Feira de Artesanato', startDate: '2026-06-20', endDate: '2026-06-22' },
-  { id: '3', name: 'Concerto ao Ar Livre', startDate: '2026-07-25', endDate: '2026-07-25' },
-  { id: '4', name: 'Exposição de Fotografia', startDate: '2026-08-05', endDate: '2026-08-12' },
-  { id: '5', name: 'Palestra sobre Turismo', startDate: '2026-09-10', endDate: '2026-09-10' },
-  { id: '6', name: 'Semana de Gastronomia', startDate: '2026-10-01', endDate: '2026-10-07' },
-  { id: '7', name: 'Workshop de Dança', startDate: '2026-10-05', endDate: '2026-10-05' },
-  { id: '8', name: 'Feira Noturna', startDate: '2026-10-05', endDate: '2026-10-05' },
-];
+interface EventoAPI {
+  id: number;
+  titulo: string;
+  data_inicio_evento: string;
+  data_fim_evento: string;
+  criado_em: string;
+}
 
 const Calendario: React.FC = () => {
-  const [currentDate, setCurrentDate] = useState(new Date(2026, 3, 1));
+  const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [today, setToday] = useState(new Date());
+  const [events, setEvents] = useState<Event[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     setToday(new Date());
+    fetchEvents();
   }, []);
+
+  const fetchEvents = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await axios.get<{ eventos: EventoAPI[] }>(`${baseURL}/eventos`);
+      
+      // Mapear eventos da API para o formato do calendário
+      const mappedEvents: Event[] = response.data.eventos.map(evento => ({
+        id: String(evento.id),
+        name: evento.titulo,
+        startDate: evento.data_inicio_evento,
+        endDate: evento.data_fim_evento,
+      }));
+      
+      setEvents(mappedEvents);
+    } catch (err: any) {
+      console.error("Erro ao buscar eventos:", err);
+      setError(err.response?.data?.message || "Não foi possível carregar os eventos.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth();
@@ -61,7 +89,7 @@ const Calendario: React.FC = () => {
 
   const getEventsOnDay = (day: number): Event[] => {
     const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-    return mockEvents.filter(event => {
+    return events.filter(event => {
       const start = event.startDate;
       const end = event.endDate;
       return dateStr >= start && dateStr <= end;
@@ -81,10 +109,8 @@ const Calendario: React.FC = () => {
   };
 
   const goToPreviousMonth = () => {
-    if (currentYear > 2026 || (currentYear === 2026 && currentMonth > 0)) {
-      setCurrentDate(new Date(currentYear, currentMonth - 1, 1));
-      setSelectedDate(null);
-    }
+    setCurrentDate(new Date(currentYear, currentMonth - 1, 1));
+    setSelectedDate(null);
   };
 
   const goToNextMonth = () => {
@@ -92,7 +118,7 @@ const Calendario: React.FC = () => {
     setSelectedDate(null);
   };
 
-  const canGoPrevious = currentYear > 2026 || (currentYear === 2026 && currentMonth > 0);
+  const canGoPrevious = true; // Permitir navegar para qualquer ano
 
   const monthNames = [
     'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
@@ -102,7 +128,7 @@ const Calendario: React.FC = () => {
   const dayNames = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
   const days = getDaysArray();
 
-  const eventsThisMonth = mockEvents.filter(event => {
+  const eventsThisMonth = events.filter(event => {
     const eventStart = new Date(event.startDate);
     const eventEnd = new Date(event.endDate);
     const monthStart = new Date(currentYear, currentMonth, 1);
@@ -116,6 +142,35 @@ const Calendario: React.FC = () => {
     setSelectedDate(selectedDate === dateKey ? null : dateKey);
   };
 
+  if (loading) {
+    return (
+      <div className="w-full max-w-2xl mx-auto p-4 pt-24">
+        <div className="flex items-center justify-center h-64">
+          <div className="flex items-center gap-3 rounded-2xl bg-white/50 backdrop-blur px-6 py-4 shadow-2xl border border-gray-200/50">
+            <FiRefreshCw className="h-5 w-5 animate-spin text-[#00BDFF]" />
+            <span className="text-sm font-medium text-gray-600">Carregando eventos...</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="w-full max-w-2xl mx-auto p-4 pt-24">
+        <div className="rounded-xl border border-red-400/50 bg-red-50 p-4 text-sm text-red-600 flex items-center gap-3">
+          <span>{error}</span>
+          <button 
+            onClick={fetchEvents}
+            className="ml-auto px-3 py-1 bg-red-100 hover:bg-red-200 rounded-lg text-xs font-medium transition-colors"
+          >
+            Tentar novamente
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full max-w-2xl mx-auto p-4 pt-24">
       {/* Título fixo Calendário 2026 */}
@@ -128,7 +183,7 @@ const Calendario: React.FC = () => {
         <div className="inline-flex items-center gap-3">
           <IoCalendarOutline className="text-[#00BDFF] text-3xl" />
           <h2 className="text-3xl font-bold text-gray-800">
-            Calendário <span className="text-[#0044CA]">2026</span>
+            Calendário <span className="text-[#0044CA]">{currentYear}</span>
           </h2>
         </div>
       </motion.div>
